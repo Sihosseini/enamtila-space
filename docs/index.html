@@ -209,7 +209,7 @@
         .nav-links .dropdown-content {
             display: none;
             position: absolute;
-            top: calc(100% + 12px);
+            top: calc(100% + 8px);
             left: 50%;
             transform: translateX(-50%);
             background: rgba(14, 18, 25, 0.95);
@@ -219,12 +219,23 @@
             padding: var(--space-sm);
             min-width: 220px;
             opacity: 0;
+            pointer-events: none;
             transition: opacity 0.3s var(--ease-out);
+        }
+
+        .nav-links .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 12px;
         }
 
         .nav-links .dropdown:hover .dropdown-content {
             display: block;
             opacity: 1;
+            pointer-events: auto;
         }
 
         .dropdown-content a {
