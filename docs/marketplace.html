@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace — ENAMTILA.space</title>
+    <meta name="description" content="Support our practitioners directly. Original artworks, healing sessions, and creative services from our global collective.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .cosmic-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 25% 45%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 75% 55%, rgba(42, 157, 143, 0.08) 0%, transparent 50%);
+        }
+
+        .nav-main {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 900;
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 8, 13, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-logo span {
+            font-weight: 600;
+            color: var(--white-warm);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--white-muted);
+            text-decoration: none;
+            transition: color 0.3s var(--ease-out);
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .marketplace-section {
+            padding: var(--space-3xl) 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .product-card {
+            background: rgba(14, 18, 25, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s var(--ease-out);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--lapis), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: rgba(212, 175, 55, 0.9);
+            color: var(--void);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .product-info {
+            padding: var(--space-lg);
+        }
+
+        .product-category {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: var(--space-sm);
+        }
+
+        .product-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--white-warm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .product-artist {
+            font-size: 0.9rem;
+            color: var(--white-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: var(--white-muted);
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .product-price {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .product-price-note {
+            font-size: 0.75rem;
+            color: var(--white-muted);
+            margin-top: 2px;
+        }
+
+        .solidarity-note {
+            background: rgba(42, 157, 143, 0.1);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            margin: var(--space-2xl) 0;
+            text-align: center;
+        }
+
+        .solidarity-note h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--teal);
+            margin-bottom: var(--space-sm);
+        }
+
+        .solidarity-note p {
+            color: var(--white-muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .marketplace-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="cosmic-glow"></div>
+
+    <nav class="nav-main">
+        <a href="index.html" class="nav-logo"><span>ENAM</span>TILA.space</a>
+        <ul class="nav-links">
+            <li><a href="index.html#pillars">Ecosystem</a></li>
+            <li><a href="practitioners.html">Practitioners</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="tents.html">Tents</a></li>
+            <li><a href="marketplace.html">Marketplace</a></li>
+            <li><a href="community.html">Community</a></li>
+        </ul>
+        <button class="nav-toggle" onclick="toggleNav()">☰</button>
+    </nav>
+
+    <header class="page-header">
+        <h1 class="page-title">Marketplace</h1>
+        <p class="page-subtitle">Support practitioners directly. No middlemen. No galleries. No exploitation.</p>
+    </header>
+
+    <section class="marketplace-section">
+        <div class="container">
+            
+            <div class="solidarity-note">
+                <h3>💫 Solidarity Pricing</h3>
+                <p>All prices are sliding scale. Pay what you can. If you can't afford it, reach out — we practice gift economy and mutual aid. If you can pay more, your contribution supports practitioners who need it most.</p>
+            </div>
+
+            <!-- Original Artworks -->
+            <div class="section-header" id="artworks">
+                <div class="section-tag">Originals</div>
+                <h2 class="section-title">Original Artworks</h2>
+                <p class="section-subtitle">One-of-a-kind pieces from our global collective</p>
+            </div>
+
+            <div class="marketplace-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        🎨
+                        <span class="product-badge">Original</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Oil on Canvas</div>
+                        <h3 class="product-title">Borderless Dreams</h3>
+                        <p class="product-artist">By Elena Popescu</p>
+                        <p class="product-desc">Large-scale painting exploring themes of migration and belonging. 120x90cm, created across three countries.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€800</div>
+                                <div class="product-price-note">Sliding scale: €400-1200</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        📷
+                        <span class="product-badge">Limited</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Photography</div>
+                        <h3 class="product-title">Faces of Resistance</h3>
+                        <p class="product-artist">By Jin Park</p>
+                        <p class="product-desc">Portrait series documenting practitioners across 12 cities. Archival print, signed and numbered (1/10).</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€250</div>
+                                <div class="product-price-note">Sliding scale: €150-400</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        🖌️
+                        <span class="product-badge">Original</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Mixed Media</div>
+                        <h3 class="product-title">Ancestral Frequencies</h3>
+                        <p class="product-artist">By Zara Kimathi</p>
+                        <p class="product-desc">Collage incorporating traditional African textiles, paint, and gold leaf. 60x80cm.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€600</div>
+                                <div class="product-price-note">Sliding scale: €300-900</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prints -->
+            <div class="section-header" id="prints" style="margin-top: var(--space-3xl);">
+                <div class="section-tag">Accessible</div>
+                <h2 class="section-title">Limited Edition Prints</h2>
+                <p class="section-subtitle">Museum-quality prints supporting practitioners</p>
+            </div>
+
+            <div class="marketplace-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        🌌
+                        <span class="product-badge">Print</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Giclée Print</div>
+                        <h3 class="product-title">Cosmic Sanctuary</h3>
+                        <p class="product-artist">By Digital Collective</p>
+                        <p class="product-desc">High-quality print of digital artwork. A3 size, limited to 50 prints.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€45</div>
+                                <div class="product-price-note">Sliding scale: €25-75</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        ✨
+                        <span class="product-badge">Print</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Screen Print</div>
+                        <h3 class="product-title">Manifesto Series</h3>
+                        <p class="product-artist">By Street Artists Collective</p>
+                        <p class="product-desc">Hand-pulled screen print featuring ENAMTILA manifesto text. 50x70cm.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€60</div>
+                                <div class="product-price-note">Sliding scale: €30-100</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        🌿
+                        <span class="product-badge">Print</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Archival Print</div>
+                        <h3 class="product-title">Herbal Wisdom</h3>
+                        <p class="product-artist">By Yasmin Al-Rashid</p>
+                        <p class="product-desc">Botanical illustrations of medicinal plants with traditional uses. Set of 3 prints.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€80</div>
+                                <div class="product-price-note">Sliding scale: €40-120</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Healing Sessions -->
+            <div class="section-header" id="sessions" style="margin-top: var(--space-3xl);">
+                <div class="section-tag">Wellness</div>
+                <h2 class="section-title">Healing Sessions</h2>
+                <p class="section-subtitle">Book sessions with our practitioners</p>
+            </div>
+
+            <div class="marketplace-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        🔮
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Spiritual Coaching</div>
+                        <h3 class="product-title">Purpose Finding Session</h3>
+                        <p class="product-artist">With Amara Osei</p>
+                        <p class="product-desc">90-minute deep dive into your creative and spiritual purpose. Online or in-person (Berlin).</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€120</div>
+                                <div class="product-price-note">Sliding scale: €60-200</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        🌿
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Herbal Consultation</div>
+                        <h3 class="product-title">Custom Remedy Creation</h3>
+                        <p class="product-artist">With Yasmin Al-Rashid</p>
+                        <p class="product-desc">Personalized herbal consultation and custom remedy blend for your specific needs.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€85</div>
+                                <div class="product-price-note">Sliding scale: €45-150</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        💆
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Sound Healing</div>
+                        <h3 class="product-title">Vibrational Therapy</h3>
+                        <p class="product-artist">With Ravi Sharma</p>
+                        <p class="product-desc">60-minute sound bath using singing bowls, gongs, and voice. Available in Prague tent.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€70</div>
+                                <div class="product-price-note">Sliding scale: €35-120</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        🔯
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Tarot Reading</div>
+                        <h3 class="product-title">Liberation Reading</h3>
+                        <p class="product-artist">With Sofia Rossi</p>
+                        <p class="product-desc">Radical tarot reading focused on navigating systems of oppression. 60 minutes, online or Barcelona.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€65</div>
+                                <div class="product-price-note">Sliding scale: €30-110</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commissions -->
+            <div class="section-header" id="commissions" style="margin-top: var(--space-3xl);">
+                <div class="section-tag">Custom Work</div>
+                <h2 class="section-title">Commissions</h2>
+                <p class="section-subtitle">Collaborate with practitioners on custom projects</p>
+            </div>
+
+            <div class="marketplace-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        🎨
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Custom Painting</div>
+                        <h3 class="product-title">Personal Commission</h3>
+                        <p class="product-artist">By Various Artists</p>
+                        <p class="product-desc">Work with one of our painters to create a custom piece. Pricing varies by size and complexity.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">From €500</div>
+                                <div class="product-price-note">Contact for quote</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        ✍️
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Writing</div>
+                        <h3 class="product-title">Custom Poetry</h3>
+                        <p class="product-artist">By Omar Hassan</p>
+                        <p class="product-desc">Commission a poem in Arabic, German, or English for special occasions or personal reflection.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€150</div>
+                                <div class="product-price-note">Sliding scale: €75-250</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        📷
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Photography</div>
+                        <h3 class="product-title">Portrait Session</h3>
+                        <p class="product-artist">By Jin Park</p>
+                        <p class="product-desc">Professional portrait session for artists and practitioners. Includes 10 edited images.</p>
+                        <div class="product-footer">
+                            <div>
+                                <div class="product-price">€200</div>
+                                <div class="product-price-note">Sliding scale: €100-350</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solidarity-note" style="margin-top: var(--space-3xl);">
+                <h3>🤝 How to Purchase</h3>
+                <p>Email <strong>marketplace@enamtila.space</strong> with the item or service you're interested in. We'll connect you directly with the practitioner. All payments go 100% to creators — no platform fees, no commissions, no exploitation.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 8000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5 + 0.3,
+                    speed: Math.random() * 0.15 + 0.02,
+                    opacity: Math.random() * 0.6 + 0.2,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const time = Date.now() * 0.001;
+            stars.forEach(star => {
+                star.y -= star.speed;
+                if (star.y < -5) { star.y = canvas.height + 5; star.x = Math.random() * canvas.width; }
+                const flicker = 0.5 + 0.5 * Math.sin(time * 2 + star.pulse);
+                const alpha = star.opacity * flicker;
+                const warmth = Math.random() > 0.7 ? 1 : 0;
+                const r = 220 + warmth * 35;
+                const g = 210 + warmth * 15;
+                const b = 200 - warmth * 60;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
+        resizeCanvas();
+        createStars();
+        animateStars();
+
+        function toggleNav() {
+            const links = document.getElementById('navLinks');
+            const toggle = document.getElementById('navToggle');
+            links.classList.toggle('open');
+            toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+        }
+    </script>
+</body>
+</html>
