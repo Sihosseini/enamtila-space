@@ -1,78 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENAMTILA.space — House of Life</title>
-    <meta name="description" content="ENAMTILA.space is a global sanctuary for spiritual practitioners, artists, and cultural catalysts. House of Life — since before borders.">
+    <title>ENAMTILA.space — Choose Your Gateway</title>
+    <meta name="description" content="Select your language and city to enter ENAMTILA.space — A global sanctuary for spiritual practitioners, artists, and cultural catalysts.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ============================================
-           ENAMTILA.space — DESIGN SYSTEM
-           Sumerian sanctuary meets cosmic rebellion
-           ============================================ */
-
         :root {
-            /* Core Palette — Ancient Earth meets Cosmos */
             --clay: #c4956a;
-            --clay-light: #d4a97a;
-            --clay-dark: #8b6914;
             --lapis: #1a3a5c;
-            --lapis-deep: #0d1f33;
-            --lapis-glow: #2a5a8c;
             --gold: #d4af37;
-            --gold-bright: #ffd700;
-            --gold-muted: #b8960b;
             --void: #06080d;
-            --void-warm: #0a0d14;
             --night: #0e1219;
-            --sand: #f0e6d3;
-            --sand-light: #f7f1e6;
-            --ink: #1a1a1a;
-            --ember: #bf4a28;
             --teal: #2a9d8f;
             --purple: #6b4c7a;
             --white-warm: #f0ebe3;
             --white-muted: rgba(240, 235, 227, 0.7);
-
-            /* Typography */
             --font-display: 'Cormorant Garamond', Georgia, serif;
             --font-body: 'Outfit', system-ui, sans-serif;
             --font-arabic: 'Noto Kufi Arabic', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-
-            /* Spacing */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 5rem;
-            --space-3xl: 8rem;
-
-            /* Transitions */
             --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-            --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
         }
 
-        /* Reset */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             font-family: var(--font-body);
             background: var(--void);
             color: var(--white-warm);
-            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ============================================
-           COSMIC BACKGROUND — Animated starfield
-           ============================================ */
-        
         #starfield {
             position: fixed;
             top: 0; left: 0;
@@ -88,994 +53,182 @@
             z-index: 0;
             pointer-events: none;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(26, 58, 92, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(42, 157, 143, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+                radial-gradient(ellipse at 30% 40%, rgba(26, 58, 92, 0.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(42, 157, 143, 0.1) 0%, transparent 40%);
         }
 
-        /* ============================================
-           LANGUAGE TOGGLE
-           ============================================ */
-
-        .lang-toggle {
-            position: fixed;
-            top: var(--space-md);
-            right: var(--space-md);
-            z-index: 1000;
-            display: flex;
-            gap: 2px;
-            background: rgba(10, 13, 20, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 8px;
-            overflow: hidden;
-            padding: 3px;
-        }
-
-        .lang-btn {
-            padding: 6px 14px;
-            font-family: var(--font-body);
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            background: transparent;
-            color: var(--white-muted);
-            border: none;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.3s var(--ease-out);
-        }
-
-        .lang-btn.active {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gold);
-        }
-
-        .lang-btn:hover { color: var(--gold); }
-
-        /* ============================================
-           NAVIGATION — Minimal, floating
-           ============================================ */
-
-        .nav-main {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 900;
-            padding: var(--space-md) var(--space-lg);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(6, 8, 13, 0.0);
-            backdrop-filter: blur(0px);
-            transition: all 0.5s var(--ease-out);
-        }
-
-        .nav-main.scrolled {
-            background: rgba(6, 8, 13, 0.9);
-            backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
-        }
-
-        .nav-logo {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            font-weight: 300;
-            letter-spacing: 0.15em;
-            color: var(--gold);
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .nav-logo span {
-            font-weight: 600;
-            color: var(--white-warm);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: var(--space-lg);
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--white-warm);
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            background: rgba(212, 175, 55, 0.05);
-            transition: all 0.3s var(--ease-out);
+        .container {
             position: relative;
-            display: inline-block;
-        }
-
-        .nav-links a:hover {
-            color: var(--void);
-            background: var(--gold);
-            border-color: var(--gold);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-        }
-
-        .nav-links .dropdown {
-            position: relative;
-        }
-
-        .nav-links .dropdown > a::after {
-            content: ' ▾';
-            font-size: 0.7rem;
-            margin-left: 4px;
-        }
-
-        .nav-links .dropdown-content {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(14, 18, 25, 0.98);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px;
-            padding: var(--space-sm);
-            min-width: 220px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s var(--ease-out);
-            z-index: 1000;
-        }
-
-        .nav-links .dropdown::before {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            height: 20px;
-            z-index: 999;
-        }
-
-        .nav-links .dropdown:hover .dropdown-content,
-        .nav-links .dropdown-content:hover {
-            display: block;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .dropdown-content a {
-            display: block;
-            padding: 10px 16px;
-            font-size: 0.78rem;
-            border-radius: 8px;
-            letter-spacing: 0.03em;
-            border: 1px solid transparent;
-            background: transparent;
-        }
-
-        .dropdown-content a:hover {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: rgba(212, 175, 55, 0.3);
-            transform: translateX(4px);
-        }
-
-        .dropdown-content a::after { display: none; }
-
-        /* Mobile menu */
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ============================================
-           HERO SECTION — Sumerian sanctuary entrance
-           ============================================ */
-
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: var(--space-3xl) var(--space-lg);
             z-index: 1;
+            max-width: 1400px;
+            width: 90%;
+            text-align: center;
+            padding: 3rem 2rem;
         }
 
-        .hero-cuneiform {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.5em;
-            color: rgba(212, 175, 55, 0.25);
-            margin-bottom: var(--space-lg);
-            text-transform: uppercase;
-            animation: fadeInDown 1.2s var(--ease-out);
-        }
-
-        .hero-title {
+        .logo {
             font-family: var(--font-display);
-            font-size: clamp(3.5rem, 10vw, 9rem);
+            font-size: 4rem;
             font-weight: 300;
-            letter-spacing: 0.12em;
-            line-height: 1;
-            color: var(--white-warm);
-            margin-bottom: var(--space-md);
-            text-transform: uppercase;
-            animation: fadeInUp 1s var(--ease-out) 0.2s both;
-        }
-
-        .hero-title .accent {
-            display: block;
-            font-size: 0.35em;
-            letter-spacing: 0.4em;
+            letter-spacing: 0.2em;
             color: var(--gold);
-            font-weight: 400;
-            margin-top: var(--space-sm);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s var(--ease-out);
         }
 
-        .hero-subtitle {
+        .logo span {
+            font-weight: 700;
+            color: var(--white-warm);
+        }
+
+        .tagline {
             font-family: var(--font-display);
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-size: 1.5rem;
             font-weight: 300;
             font-style: italic;
             color: var(--white-muted);
-            max-width: 600px;
-            margin-bottom: var(--space-xl);
-            animation: fadeInUp 1s var(--ease-out) 0.5s both;
-        }
-
-        .hero-arabic {
-            font-family: var(--font-arabic);
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            color: rgba(212, 175, 55, 0.5);
-            direction: rtl;
-            margin-bottom: var(--space-xl);
-            animation: fadeInUp 1s var(--ease-out) 0.7s both;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: var(--space-md);
-            animation: fadeInUp 1s var(--ease-out) 0.9s both;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 32px;
-            font-family: var(--font-body);
-            font-size: 0.82rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            text-decoration: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s var(--ease-out);
-            border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold), var(--gold-muted));
-            color: var(--void);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-ghost {
-            background: transparent;
-            color: var(--white-warm);
-            border: 1px solid rgba(240, 235, 227, 0.2);
-        }
-
-        .btn-ghost:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            transform: translateY(-2px);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: var(--space-xl);
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            animation: fadeInUp 1s var(--ease-out) 1.2s both;
-        }
-
-        .scroll-indicator span {
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--white-muted);
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 40px;
-            background: linear-gradient(to bottom, var(--gold), transparent);
-            animation: scrollPulse 2s ease-in-out infinite;
-        }
-
-        /* ============================================
-           SECTION STYLING — Shared
-           ============================================ */
-
-        section { position: relative; z-index: 1; }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: var(--space-2xl);
-        }
-
-        .section-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: var(--space-md);
-            position: relative;
-        }
-
-        .section-tag::before,
-        .section-tag::after {
-            content: '—';
-            margin: 0 12px;
-            opacity: 0.4;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s var(--ease-out) 0.2s both;
         }
 
         .section-title {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            color: var(--white-warm);
-            margin-bottom: var(--space-md);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .section-subtitle {
             font-size: 1rem;
             color: var(--white-muted);
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 300;
+            margin-bottom: 2.5rem;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        /* ============================================
-           DOMAINS / PILLARS — The Ecosystem
-           ============================================ */
-
-        .pillars {
-            padding: var(--space-3xl) 0;
-        }
-
-        .pillars-grid {
+        /* Language Selection */
+        .language-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-lg);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+            animation: fadeInUp 1s var(--ease-out) 0.4s both;
         }
 
-        .pillar-card {
-            position: relative;
-            padding: var(--space-xl) var(--space-lg);
+        .language-card {
             background: rgba(14, 18, 25, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.06);
+            border: 2px solid rgba(212, 175, 55, 0.3);
             border-radius: 16px;
-            text-align: center;
+            padding: 2rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out);
             text-decoration: none;
             color: var(--white-warm);
-            transition: all 0.5s var(--ease-out);
-            overflow: hidden;
         }
 
-        .pillar-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.03));
-            opacity: 0;
-            transition: opacity 0.5s var(--ease-out);
-        }
-
-        .pillar-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(212, 175, 55, 0.15);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .pillar-card:hover::before { opacity: 1; }
-
-        .pillar-icon {
-            font-size: 2.5rem;
-            margin-bottom: var(--space-md);
-            display: block;
-        }
-
-        .pillar-domain {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--gold);
-            letter-spacing: 0.1em;
-            margin-bottom: var(--space-sm);
-        }
-
-        .pillar-name {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: var(--space-sm);
-        }
-
-        .pillar-desc {
-            font-size: 0.85rem;
-            color: var(--white-muted);
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        /* ============================================
-           PRACTITIONERS GRID — Spiritual & Creative
-           ============================================ */
-
-        .practitioners {
-            padding: var(--space-3xl) 0;
-            background: linear-gradient(180deg, transparent, rgba(107, 76, 122, 0.03), transparent);
-        }
-
-        .practitioners-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: var(--space-md);
-        }
-
-        .practitioner-card {
-            padding: var(--space-xl) var(--space-md);
-            background: rgba(14, 18, 25, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.04);
-            border-radius: 16px;
-            text-align: center;
-            transition: all 0.4s var(--ease-out);
-            cursor: pointer;
-        }
-
-        .practitioner-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(212, 175, 55, 0.2);
-            background: rgba(14, 18, 25, 0.7);
-        }
-
-        .practitioner-icon {
-            font-size: 2.5rem;
-            display: block;
-            margin-bottom: var(--space-sm);
-        }
-
-        .practitioner-name {
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .practitioner-desc {
-            font-size: 0.75rem;
-            color: var(--white-muted);
-            font-weight: 300;
-        }
-
-        /* ============================================
-           MANIFESTO BLOCK — Condensed
-           ============================================ */
-
-        .manifesto {
-            padding: var(--space-3xl) 0;
-            background: linear-gradient(180deg, transparent, rgba(26, 58, 92, 0.05), transparent);
-        }
-
-        .manifesto-inner {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .manifesto-quote {
-            font-family: var(--font-display);
-            font-size: clamp(1.3rem, 3vw, 2rem);
-            font-weight: 300;
-            font-style: italic;
-            line-height: 1.8;
-            color: var(--white-warm);
-            margin-bottom: var(--space-xl);
-            position: relative;
-        }
-
-        .manifesto-quote::before {
-            content: '"';
-            font-size: 6rem;
-            position: absolute;
-            top: -40px;
-            left: -20px;
-            color: rgba(212, 175, 55, 0.15);
-            font-family: var(--font-display);
-            line-height: 1;
-        }
-
-        .manifesto-principles {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-lg);
-            text-align: left;
-            margin-top: var(--space-2xl);
-        }
-
-        .principle {
-            padding: var(--space-lg);
-            border-left: 2px solid rgba(212, 175, 55, 0.2);
-            transition: border-color 0.3s var(--ease-out);
-        }
-
-        .principle:hover {
+        .language-card:hover {
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
         }
 
-        .principle h4 {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--clay-light);
-            margin-bottom: var(--space-sm);
-        }
-
-        .principle p {
-            font-size: 0.9rem;
-            color: var(--white-muted);
-            font-weight: 300;
-            line-height: 1.7;
-        }
-
-        /* ============================================
-           ONE TABLE, TWO FRIENDS
-           ============================================ */
-
-        .one-table {
-            padding: var(--space-3xl) 0;
-        }
-
-        .dinner-formula {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: var(--space-lg);
-            margin-bottom: var(--space-xl);
-            flex-wrap: wrap;
-        }
-
-        .formula-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-xl) var(--space-lg);
-            background: rgba(14, 18, 25, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.06);
-            border-radius: 16px;
-            min-width: 180px;
-            transition: all 0.4s var(--ease-out);
-        }
-
-        .formula-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(212, 175, 55, 0.2);
-        }
-
-        .formula-icon { font-size: 2.5rem; }
-
-        .formula-label {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--white-warm);
-        }
-
-        .formula-plus {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            color: var(--gold);
-            font-weight: 300;
-        }
-
-        .big-question {
-            text-align: center;
-            font-family: var(--font-display);
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            font-style: italic;
-            font-weight: 300;
-            color: var(--gold);
-            max-width: 700px;
-            margin: 0 auto var(--space-lg);
-        }
-
-        .dinner-desc {
-            text-align: center;
-            color: var(--white-muted);
-            font-size: 0.95rem;
-            max-width: 600px;
-            margin: 0 auto var(--space-xl);
-            font-weight: 300;
-        }
-
-        .cta-center {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-md);
-            flex-wrap: wrap;
-        }
-
-        /* ============================================
-           ARTIST COUCHSURFING NETWORK
-           ============================================ */
-
-        .couchsurfing {
-            padding: var(--space-3xl) 0;
-            background: linear-gradient(180deg, transparent, rgba(42, 157, 143, 0.03), transparent);
-        }
-
-        .couch-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-lg);
-        }
-
-        .couch-card {
-            padding: var(--space-xl);
-            background: rgba(14, 18, 25, 0.5);
-            border: 1px solid rgba(42, 157, 143, 0.08);
-            border-radius: 16px;
-            text-align: center;
-            transition: all 0.4s var(--ease-out);
-        }
-
-        .couch-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(42, 157, 143, 0.25);
-        }
-
-        .couch-card .icon {
-            font-size: 2.2rem;
-            margin-bottom: var(--space-md);
+        .language-flag {
+            font-size: 3rem;
             display: block;
+            margin-bottom: 1rem;
         }
 
-        .couch-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: var(--space-sm);
-        }
-
-        .couch-card p {
-            font-size: 0.85rem;
-            color: var(--white-muted);
-            font-weight: 300;
-        }
-
-        /* ============================================
-           ENAMTILA TENTS — Global Locations
-           ============================================ */
-
-        .tents {
-            padding: var(--space-3xl) 0;
-        }
-
-        .tents-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: var(--space-md);
-        }
-
-        .tent-card {
-            padding: var(--space-lg) var(--space-md);
-            background: rgba(14, 18, 25, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.04);
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.4s var(--ease-out);
-            cursor: pointer;
-        }
-
-        .tent-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(212, 175, 55, 0.2);
-            background: rgba(14, 18, 25, 0.7);
-        }
-
-        .tent-card .flag { font-size: 2rem; display: block; margin-bottom: var(--space-sm); }
-        .tent-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
-        .tent-card p { font-size: 0.75rem; color: var(--white-muted); font-weight: 300; }
-
-        /* ============================================
-           FULL MANIFESTO — Expandable
-           ============================================ */
-
-        .full-manifesto {
-            padding: var(--space-3xl) 0;
-            background: linear-gradient(180deg, transparent, rgba(191, 74, 40, 0.03), transparent);
-        }
-
-        .manifesto-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .manifesto-section {
-            margin-bottom: var(--space-2xl);
-            padding: var(--space-xl);
-            border-left: 2px solid rgba(212, 175, 55, 0.1);
-            transition: border-color 0.3s;
-        }
-
-        .manifesto-section:hover {
-            border-color: var(--gold);
-        }
-
-        .manifesto-section h3 {
-            font-family: var(--font-display);
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--clay-light);
-            margin-bottom: var(--space-md);
-        }
-
-        .manifesto-section p {
-            font-size: 0.95rem;
-            color: var(--white-muted);
-            font-weight: 300;
-            line-height: 1.8;
-            margin-bottom: var(--space-md);
-        }
-
-        .manifesto-section p:last-child { margin-bottom: 0; }
-
-        .manifesto-section strong {
-            color: var(--white-warm);
-            font-weight: 500;
-        }
-
-        .manifesto-section em {
-            color: var(--gold);
-            font-style: normal;
-        }
-
-        /* ============================================
-           GALLERY PREVIEW
-           ============================================ */
-
-        .gallery-preview {
-            padding: var(--space-3xl) 0;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-lg);
-        }
-
-        .gallery-card {
-            position: relative;
-            aspect-ratio: 4/5;
-            border-radius: 16px;
-            overflow: hidden;
-            background: rgba(14, 18, 25, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.04);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: var(--space-xl);
-            transition: all 0.5s var(--ease-out);
-            cursor: pointer;
-        }
-
-        .gallery-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 40%, rgba(6, 8, 13, 0.9));
-            z-index: 1;
-        }
-
-        .gallery-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(212, 175, 55, 0.15);
-        }
-
-        .gallery-card > * { position: relative; z-index: 2; }
-
-        .gallery-label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: var(--space-sm);
-        }
-
-        .gallery-card h3 {
+        .language-name {
             font-family: var(--font-display);
             font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: var(--space-sm);
+            margin-bottom: 0.5rem;
         }
 
-        .gallery-card p {
-            font-size: 0.85rem;
-            color: var(--white-muted);
-            font-weight: 300;
-        }
-
-        .gallery-emoji {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -60%);
-            font-size: 4rem;
-            opacity: 0.15;
-            z-index: 0;
-        }
-
-        /* ============================================
-           NEWSLETTER
-           ============================================ */
-
-        .newsletter {
-            padding: var(--space-3xl) 0;
-        }
-
-        .newsletter-form {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto;
-            gap: var(--space-sm);
-        }
-
-        .newsletter-form input[type="email"] {
-            flex: 1;
-            padding: 14px 20px;
-            background: rgba(14, 18, 25, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 50px;
-            color: var(--white-warm);
-            font-family: var(--font-body);
+        .language-native {
             font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .newsletter-form input:focus {
-            border-color: var(--gold);
-        }
-
-        .newsletter-form input::placeholder {
             color: var(--white-muted);
         }
 
-        /* ============================================
-           FOOTER
-           ============================================ */
-
-        .site-footer {
-            padding: var(--space-3xl) 0 var(--space-xl);
-            border-top: 1px solid rgba(212, 175, 55, 0.06);
-        }
-
-        .footer-grid {
+        /* City Selection */
+        .cities-grid {
             display: grid;
-            grid-template-columns: 2fr repeat(3, 1fr);
-            gap: var(--space-2xl);
-            margin-bottom: var(--space-2xl);
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.2rem;
+            animation: fadeInUp 1s var(--ease-out) 0.6s both;
         }
 
-        .footer-brand .footer-logo {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            color: var(--gold);
-            text-transform: uppercase;
-            margin-bottom: var(--space-md);
-        }
-
-        .footer-brand p {
-            font-size: 0.85rem;
-            color: var(--white-muted);
-            font-weight: 300;
-            line-height: 1.7;
-            max-width: 300px;
-        }
-
-        .footer-col h4 {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--clay-light);
-            margin-bottom: var(--space-md);
-        }
-
-        .footer-col ul { list-style: none; }
-
-        .footer-col a {
-            display: block;
-            font-size: 0.82rem;
-            color: var(--white-muted);
+        .city-card {
+            background: rgba(14, 18, 25, 0.5);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
             text-decoration: none;
-            padding: 4px 0;
-            font-weight: 300;
-            transition: color 0.3s;
+            color: var(--white-warm);
         }
 
-        .footer-col a:hover { color: var(--gold); }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: var(--space-lg);
-            border-top: 1px solid rgba(212, 175, 55, 0.04);
+        .city-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--teal);
+            background: rgba(42, 157, 143, 0.1);
+            box-shadow: 0 10px 30px rgba(42, 157, 143, 0.2);
         }
 
-        .footer-bottom p {
+        .city-flag {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .city-name {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .city-country {
             font-size: 0.75rem;
             color: var(--white-muted);
-            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .footer-tagline {
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: 0.85rem;
-            color: rgba(212, 175, 55, 0.4);
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent);
+            margin: 4rem 0;
         }
 
-        /* ============================================
-           REVEAL ANIMATIONS
-           ============================================ */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+        .skip-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 12px 30px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 8px;
+            color: var(--white-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s var(--ease-out);
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .skip-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
@@ -1083,533 +236,189 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes scrollPulse {
-            0%, 100% { opacity: 0.3; transform: scaleY(1); }
-            50% { opacity: 1; transform: scaleY(1.3); }
-        }
-
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
-
-        @media (max-width: 1024px) {
-            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
-            .couch-grid { grid-template-columns: repeat(2, 1fr); }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .practitioners-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-toggle { display: block; }
-
-            .nav-links.open {
-                display: flex;
-                flex-direction: column;
-                position: fixed;
-                top: 0; left: 0;
-                width: 100%; height: 100vh;
-                background: rgba(6, 8, 13, 0.98);
-                justify-content: center;
-                align-items: center;
-                gap: var(--space-lg);
-                z-index: 999;
-            }
-
-            .nav-links.open a { font-size: 1.1rem; }
-
-            .pillars-grid { grid-template-columns: 1fr; }
-            .couch-grid { grid-template-columns: 1fr; }
-            .gallery-grid { grid-template-columns: 1fr; }
-            .manifesto-principles { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
-            .dinner-formula { flex-direction: column; }
-            .formula-plus { transform: rotate(90deg); }
-            .hero-cta { flex-direction: column; align-items: center; }
-            .newsletter-form { flex-direction: column; }
-            .practitioners-grid { grid-template-columns: repeat(2, 1fr); }
+            .logo { font-size: 2.5rem; }
+            .tagline { font-size: 1.1rem; }
+            .section-title { font-size: 1.5rem; }
+            .language-grid { grid-template-columns: 1fr 1fr; }
+            .cities-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
         }
     </style>
 </head>
 <body>
-
-    <!-- Starfield Canvas -->
     <canvas id="starfield"></canvas>
     <div class="cosmic-glow"></div>
 
-    <!-- Language Toggle -->
-    <div class="lang-toggle">
-        <button class="lang-btn active" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" onclick="setLang('ar')">عر</button>
+    <div class="container">
+        <h1 class="logo"><span>ENAM</span>TILA.space</h1>
+        <p class="tagline">House of Life — Since before borders. Until after empires.</p>
+
+        <!-- Language Selection -->
+        <section>
+            <h2 class="section-title">Choose Your Language</h2>
+            <p class="section-subtitle">Select your preferred language to continue</p>
+            
+            <div class="language-grid">
+                <a href="home.html?lang=en" class="language-card">
+                    <span class="language-flag">🇬🇧</span>
+                    <div class="language-name">English</div>
+                    <div class="language-native">English</div>
+                </a>
+
+                <a href="home.html?lang=es" class="language-card">
+                    <span class="language-flag">🇪🇸</span>
+                    <div class="language-name">Spanish</div>
+                    <div class="language-native">Español</div>
+                </a>
+
+                <a href="home.html?lang=fr" class="language-card">
+                    <span class="language-flag">🇫🇷</span>
+                    <div class="language-name">French</div>
+                    <div class="language-native">Français</div>
+                </a>
+
+                <a href="home.html?lang=ar" class="language-card">
+                    <span class="language-flag">🇸🇦</span>
+                    <div class="language-name">Arabic</div>
+                    <div class="language-native">العربية</div>
+                </a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- City Selection -->
+        <section>
+            <h2 class="section-title">Or Choose Your City</h2>
+            <p class="section-subtitle">Connect directly with your local ENAMTILA tent</p>
+            
+            <div class="cities-grid">
+                <a href="tents.html#bangkok" class="city-card">
+                    <span class="city-flag">🇹🇭</span>
+                    <div class="city-name">Bangkok</div>
+                    <div class="city-country">Thailand</div>
+                </a>
+
+                <a href="tents.html#hanoi" class="city-card">
+                    <span class="city-flag">🇻🇳</span>
+                    <div class="city-name">Hanoi</div>
+                    <div class="city-country">Vietnam</div>
+                </a>
+
+                <a href="tents.html#budapest" class="city-card">
+                    <span class="city-flag">🇭🇺</span>
+                    <div class="city-name">Budapest</div>
+                    <div class="city-country">Hungary</div>
+                </a>
+
+                <a href="tents.html#prague" class="city-card">
+                    <span class="city-flag">🇨🇿</span>
+                    <div class="city-name">Prague</div>
+                    <div class="city-country">Czech Republic</div>
+                </a>
+
+                <a href="tents.html#berlin" class="city-card">
+                    <span class="city-flag">🇩🇪</span>
+                    <div class="city-name">Berlin</div>
+                    <div class="city-country">Germany</div>
+                </a>
+
+                <a href="tents.html#barcelona" class="city-card">
+                    <span class="city-flag">🇪🇸</span>
+                    <div class="city-name">Barcelona</div>
+                    <div class="city-country">Spain</div>
+                </a>
+
+                <a href="tents.html#lisbon" class="city-card">
+                    <span class="city-flag">🇵🇹</span>
+                    <div class="city-name">Lisbon</div>
+                    <div class="city-country">Portugal</div>
+                </a>
+
+                <a href="tents.html#cairo" class="city-card">
+                    <span class="city-flag">🇪🇬</span>
+                    <div class="city-name">Cairo</div>
+                    <div class="city-country">Egypt</div>
+                </a>
+
+                <a href="tents.html#marrakech" class="city-card">
+                    <span class="city-flag">🇲🇦</span>
+                    <div class="city-name">Marrakech</div>
+                    <div class="city-country">Morocco</div>
+                </a>
+
+                <a href="tents.html#mexico" class="city-card">
+                    <span class="city-flag">🇲🇽</span>
+                    <div class="city-name">Mexico City</div>
+                    <div class="city-country">Mexico</div>
+                </a>
+
+                <a href="tents.html#saopaulo" class="city-card">
+                    <span class="city-flag">🇧🇷</span>
+                    <div class="city-name">São Paulo</div>
+                    <div class="city-country">Brazil</div>
+                </a>
+
+                <a href="tents.html#lagos" class="city-card">
+                    <span class="city-flag">🇳🇬</span>
+                    <div class="city-name">Lagos</div>
+                    <div class="city-country">Nigeria</div>
+                </a>
+
+                <a href="tents.html#paris" class="city-card">
+                    <span class="city-flag">🇫🇷</span>
+                    <div class="city-name">Paris</div>
+                    <div class="city-country">France</div>
+                </a>
+
+                <a href="tents.html#london" class="city-card">
+                    <span class="city-flag">🇬🇧</span>
+                    <div class="city-name">London</div>
+                    <div class="city-country">United Kingdom</div>
+                </a>
+
+                <a href="tents.html#newyork" class="city-card">
+                    <span class="city-flag">🇺🇸</span>
+                    <div class="city-name">New York</div>
+                    <div class="city-country">USA</div>
+                </a>
+
+                <a href="tents.html#tokyo" class="city-card">
+                    <span class="city-flag">🇯🇵</span>
+                    <div class="city-name">Tokyo</div>
+                    <div class="city-country">Japan</div>
+                </a>
+
+                <a href="tents.html#seoul" class="city-card">
+                    <span class="city-flag">🇰🇷</span>
+                    <div class="city-name">Seoul</div>
+                    <div class="city-country">South Korea</div>
+                </a>
+
+                <a href="tents.html#istanbul" class="city-card">
+                    <span class="city-flag">🇹🇷</span>
+                    <div class="city-name">Istanbul</div>
+                    <div class="city-country">Turkey</div>
+                </a>
+
+                <a href="tents.html#buenosaires" class="city-card">
+                    <span class="city-flag">🇦🇷</span>
+                    <div class="city-name">Buenos Aires</div>
+                    <div class="city-country">Argentina</div>
+                </a>
+
+                <a href="tents.html#capetown" class="city-card">
+                    <span class="city-flag">🇿🇦</span>
+                    <div class="city-name">Cape Town</div>
+                    <div class="city-country">South Africa</div>
+                </a>
+            </div>
+        </section>
+
+        <a href="home.html" class="skip-link">Enter Without Selection →</a>
     </div>
 
-    <!-- Navigation -->
-    <nav class="nav-main" id="mainNav">
-        <a href="#" class="nav-logo"><span>ENAM</span>TILA.space</a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#pillars">Ecosystem</a></li>
-            <li class="dropdown">
-                <a href="#practitioners">Practitioners</a>
-                <div class="dropdown-content">
-                    <a href="#coaches">🔮 Spiritual Coaches</a>
-                    <a href="#healers">🌿 Healers</a>
-                    <a href="#psychics">✨ Psychics</a>
-                    <a href="#writers">✍️ Writers</a>
-                    <a href="#artists">🎨 Artists</a>
-                    <a href="#speakers">🎤 Speakers</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#gallery">Gallery</a>
-                <div class="dropdown-content">
-                    <a href="#films">🎬 Films</a>
-                    <a href="#photography">📷 Photography</a>
-                    <a href="#painting">🖼️ Painting</a>
-                    <a href="#digital">💫 Digital Art</a>
-                    <a href="#mixed">🎭 Mixed Media</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#tents">Tents</a>
-                <div class="dropdown-content">
-                    <a href="#bangkok">🇹🇭 Bangkok</a>
-                    <a href="#hanoi">🇻🇳 Hanoi</a>
-                    <a href="#budapest">🇭🇺 Budapest</a>
-                    <a href="#prague">🇨🇿 Prague</a>
-                    <a href="#berlin">🇩🇪 Berlin</a>
-                    <a href="#barcelona">🇪🇸 Barcelona</a>
-                    <a href="#lisbon">🇵🇹 Lisbon</a>
-                    <a href="#cairo">🇪🇬 Cairo</a>
-                    <a href="#marrakech">🇲🇦 Marrakech</a>
-                    <a href="#mexico">🇲🇽 Mexico City</a>
-                    <a href="#saopaulo">🇧🇷 São Paulo</a>
-                    <a href="#lagos">🇳🇬 Lagos</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#marketplace">Marketplace</a>
-                <div class="dropdown-content">
-                    <a href="#artworks">🎨 Original Artworks</a>
-                    <a href="#prints">🖨️ Limited Prints</a>
-                    <a href="#sessions">💆 Healing Sessions</a>
-                    <a href="#commissions">💼 Commissions</a>
-                </div>
-            </li>
-            <li><a href="#one-table">One Table</a></li>
-            <li><a href="#couchsurfing">Stay With Us</a></li>
-            <li><a href="#manifesto">Manifesto</a></li>
-            <li><a href="#community">Community</a></li>
-        </ul>
-        <button class="nav-toggle" id="navToggle" onclick="toggleNav()">☰</button>
-    </nav>
-
-    <!-- ==========================================
-         HERO
-         ========================================== -->
-    <section class="hero" id="home">
-        <div class="hero-cuneiform">since before borders</div>
-        <h1 class="hero-title">
-            Enamtila.space
-            <span class="accent">House of Life</span>
-        </h1>
-        <p class="hero-subtitle">
-            A global sanctuary for spiritual practitioners, artists, and cultural catalysts. We build infrastructure for the creators and healers the world tries to erase.
-        </p>
-        <p class="hero-arabic">بيت الحياة — ملجأ للممارسين الروحيين والفنانين</p>
-        <div class="hero-cta">
-            <a href="#community" class="btn btn-primary">Join the Collective</a>
-            <a href="#manifesto" class="btn btn-ghost">Read Our Manifesto</a>
-        </div>
-        <div class="scroll-indicator">
-            <span>Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         ECOSYSTEM PILLARS
-         ========================================== -->
-    <section class="pillars" id="pillars">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">The Ecosystem</div>
-                <h2 class="section-title">Four Pillars, One House</h2>
-                <p class="section-subtitle">A decentralized network spanning art, spirit, sound, and commerce — all under one ancient roof.</p>
-            </div>
-            <div class="pillars-grid">
-                <a href="#gallery" class="pillar-card reveal">
-                    <span class="pillar-icon">🎨</span>
-                    <div class="pillar-domain">enamtila.art</div>
-                    <h3 class="pillar-name">Gallery</h3>
-                    <p class="pillar-desc">Artist portfolios, exhibitions, and cultural archives. Film, photography, painting, digital art, and mixed media from our global collective.</p>
-                </a>
-                <a href="#community" class="pillar-card reveal">
-                    <span class="pillar-icon">🤝</span>
-                    <div class="pillar-domain">enamtila.community</div>
-                    <h3 class="pillar-name">Community</h3>
-                    <p class="pillar-desc">Events, forums, networking dinners, resources for spiritual practitioners and migrant artists, and the global couchsurfing network.</p>
-                </a>
-                <a href="#radio" class="pillar-card reveal">
-                    <span class="pillar-icon">📻</span>
-                    <div class="pillar-domain">enamtila.fm</div>
-                    <h3 class="pillar-name">Radio</h3>
-                    <p class="pillar-desc">Live streaming, podcast archive, artist radio, healing frequencies, mixtapes, and community playlists from across the diaspora.</p>
-                </a>
-                <a href="#marketplace" class="pillar-card reveal">
-                    <span class="pillar-icon">🛒</span>
-                    <div class="pillar-domain">enamtila.life</div>
-                    <h3 class="pillar-name">Marketplace</h3>
-                    <p class="pillar-desc">Original artworks, healing sessions, limited prints, spiritual merchandise, commissions. Direct from creator to you.</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         PRACTITIONERS — The Six Paths
-         ========================================== -->
-    <section class="practitioners" id="practitioners">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">The Practitioners</div>
-                <h2 class="section-title">Six Paths, One Journey</h2>
-                <p class="section-subtitle">Spiritual coaches, healers, psychics, writers, artists, and speakers — united in the House of Life.</p>
-            </div>
-            <div class="practitioners-grid reveal">
-                <div class="practitioner-card">
-                    <span class="practitioner-icon">🔮</span>
-                    <h3 class="practitioner-name">Coaches</h3>
-                    <p class="practitioner-desc">Spiritual guides</p>
-                </div>
-                <div class="practitioner-card">
-                    <span class="practitioner-icon">🌿</span>
-                    <h3 class="practitioner-name">Healers</h3>
-                    <p class="practitioner-desc">Energy workers</p>
-                </div>
-                <div class="practitioner-card">
-                    <span class="practitioner-icon">✨</span>
-                    <h3 class="practitioner-name">Psychics</h3>
-                    <p class="practitioner-desc">Intuitive seers</p>
-                </div>
-                <div class="practitioner-card">
-                    <span class="practitioner-icon">✍️</span>
-                    <h3 class="practitioner-name">Writers</h3>
-                    <p class="practitioner-desc">Word weavers</p>
-                </div>
-                <div class="practitioner-card">
-                    <span class="practitioner-icon">🎨</span>
-                    <h3 class="practitioner-name">Artists</h3>
-                    <p class="practitioner-desc">Visual creators</p>
-                </div>
-                <div class="practitioner-card">
-                    <span class="practitioner-icon">🎤</span>
-                    <h3 class="practitioner-name">Speakers</h3>
-                    <p class="practitioner-desc">Voice carriers</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         MANIFESTO BLOCK — Short
-         ========================================== -->
-    <section class="manifesto" id="about">
-        <div class="container">
-            <div class="manifesto-inner reveal">
-                <div class="section-tag">Our Mission</div>
-                <blockquote class="manifesto-quote">
-                    ENAMTILA.space exists because borders are arbitrary but spirit is essential. We build infrastructure for the healers and creators the world tries to erase — those fleeing war, navigating migration, surviving on the margins. This is not charity. This is mutual aid. This is cultural resistance.
-                </blockquote>
-                <div class="manifesto-principles">
-                    <div class="principle reveal">
-                        <h4>Radical Solidarity</h4>
-                        <p>We stand with the marginalized, the displaced, the silenced. Your victory is our victory. Your art is our archive. Your healing is our purpose.</p>
-                    </div>
-                    <div class="principle reveal">
-                        <h4>Spiritual Resistance</h4>
-                        <p>Our existence and creation is an act of rebellion against systems that seek to limit, categorize, or commercialize human consciousness and creativity.</p>
-                    </div>
-                    <div class="principle reveal">
-                        <h4>Direct Action</h4>
-                        <p>We don't wait for permission. We don't apply for grants from institutions we want to dismantle. We occupy, we create, we heal, we share, we build.</p>
-                    </div>
-                    <div class="principle reveal">
-                        <h4>Transcendent Vision</h4>
-                        <p>We don't just adapt to the world as it is — we actively create the world we want through art, healing, action, and collective imagination.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         ONE TABLE, TWO FRIENDS
-         ========================================== -->
-    <section class="one-table" id="one-table">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">Connection</div>
-                <h2 class="section-title">One Table, Two Friends</h2>
-                <p class="section-subtitle">A place where friends of friends meet over dinner</p>
-            </div>
-            <div class="dinner-formula reveal">
-                <div class="formula-card">
-                    <span class="formula-icon">🍽️</span>
-                    <span class="formula-label">One Table</span>
-                </div>
-                <span class="formula-plus">+</span>
-                <div class="formula-card">
-                    <span class="formula-icon">👤</span>
-                    <span class="formula-label">One Friend You Know</span>
-                </div>
-                <span class="formula-plus">+</span>
-                <div class="formula-card">
-                    <span class="formula-icon">✨</span>
-                    <span class="formula-label">One You've Never Met</span>
-                </div>
-            </div>
-            <div class="big-question reveal">What if the next person to change your life is just one friend away?</div>
-            <p class="dinner-desc reveal">Pick a date, book a restaurant, and invite half the guests. Your guests will be asked to <strong style="color: var(--gold);">Add One</strong> friend who they know, but you don't. No pitches. No networking cards. Just conversation.</p>
-            <div class="cta-center reveal">
-                <a href="#host" class="btn btn-primary">Host a Dinner</a>
-                <a href="#join-dinner" class="btn btn-ghost">Join a Dinner</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         COUCHSURFING FOR ARTISTS
-         ========================================== -->
-    <section class="couchsurfing" id="couchsurfing">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">The Network</div>
-                <h2 class="section-title">Stay With Us</h2>
-                <p class="section-subtitle">A global couchsurfing system for traveling practitioners and artists. Need a place to stay while exhibiting in Berlin? Healing in Beirut? We connect you.</p>
-            </div>
-            <div class="couch-grid">
-                <div class="couch-card reveal">
-                    <span class="icon">🗺️</span>
-                    <h3>Global Network</h3>
-                    <p>Connect with practitioners in 12+ cities worldwide</p>
-                </div>
-                <div class="couch-card reveal">
-                    <span class="icon">🛋️</span>
-                    <h3>Free Stays</h3>
-                    <p>Couch exchange — no money needed, just mutual trust</p>
-                </div>
-                <div class="couch-card reveal">
-                    <span class="icon">🎨</span>
-                    <h3>Creative Spaces</h3>
-                    <p>Access to studios, healing rooms, and maker spaces</p>
-                </div>
-                <div class="couch-card reveal">
-                    <span class="icon">🤝</span>
-                    <h3>Build Community</h3>
-                    <p>Form lasting connections with fellow creators in motion</p>
-                </div>
-            </div>
-            <div class="cta-center reveal" style="margin-top: var(--space-xl);">
-                <a href="#join-network" class="btn btn-primary">Join the Network</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         ENAMTILA TENTS — Global Locations
-         ========================================== -->
-    <section class="tents" id="tents">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">Locations</div>
-                <h2 class="section-title">Enamtila Tents</h2>
-                <p class="section-subtitle">Our global network of sanctuary spaces — nomadic temples that move with the people they serve.</p>
-            </div>
-            <div class="tents-grid reveal">
-                <div class="tent-card"><span class="flag">🇹🇭</span><h3>Bangkok</h3><p>Thailand</p></div>
-                <div class="tent-card"><span class="flag">🇻🇳</span><h3>Hanoi</h3><p>Vietnam</p></div>
-                <div class="tent-card"><span class="flag">🇭🇺</span><h3>Budapest</h3><p>Hungary</p></div>
-                <div class="tent-card"><span class="flag">🇨🇿</span><h3>Prague</h3><p>Czech Republic</p></div>
-                <div class="tent-card"><span class="flag">🇩🇪</span><h3>Berlin</h3><p>Germany</p></div>
-                <div class="tent-card"><span class="flag">🇪🇸</span><h3>Barcelona</h3><p>Spain</p></div>
-                <div class="tent-card"><span class="flag">🇵🇹</span><h3>Lisbon</h3><p>Portugal</p></div>
-                <div class="tent-card"><span class="flag">🇪🇬</span><h3>Cairo</h3><p>Egypt</p></div>
-                <div class="tent-card"><span class="flag">🇲🇦</span><h3>Marrakech</h3><p>Morocco</p></div>
-                <div class="tent-card"><span class="flag">🇲🇽</span><h3>Mexico City</h3><p>Mexico</p></div>
-                <div class="tent-card"><span class="flag">🇧🇷</span><h3>São Paulo</h3><p>Brazil</p></div>
-                <div class="tent-card"><span class="flag">🇳🇬</span><h3>Lagos</h3><p>Nigeria</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         GALLERY PREVIEW
-         ========================================== -->
-    <section class="gallery-preview" id="gallery">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">Featured</div>
-                <h2 class="section-title">From the Archive</h2>
-                <p class="section-subtitle">Showcasing work from creators who refuse to be erased.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-card reveal">
-                    <span class="gallery-emoji">🎬</span>
-                    <span class="gallery-label">Film</span>
-                    <h3>Borderless Cinema</h3>
-                    <p>Stories that cross every line drawn on a map</p>
-                </div>
-                <div class="gallery-card reveal">
-                    <span class="gallery-emoji">📷</span>
-                    <span class="gallery-label">Photography</span>
-                    <h3>Diaspora Lens</h3>
-                    <p>Seeing home through the eyes of distance</p>
-                </div>
-                <div class="gallery-card reveal">
-                    <span class="gallery-emoji">🎨</span>
-                    <span class="gallery-label">Visual Arts</span>
-                    <h3>Collective Canvas</h3>
-                    <p>Where individual visions merge into shared truth</p>
-                </div>
-            </div>
-            <div class="cta-center reveal" style="margin-top: var(--space-xl);">
-                <a href="#full-gallery" class="btn btn-ghost">Explore Full Gallery →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         FULL MANIFESTO
-         ========================================== -->
-    <section class="full-manifesto" id="manifesto">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">Manifesto</div>
-                <h2 class="section-title">No Gods, No Masters, No Galleries</h2>
-                <p class="section-subtitle">A declaration of creative and spiritual liberation</p>
-            </div>
-            <div class="manifesto-content">
-                <div class="manifesto-section reveal">
-                    <h3>🔥 Who We Are</h3>
-                    <p>In a world carved up by capitalists, bordered by nation-states, and controlled by those who profit from our labor, we choose <strong>autonomy</strong>. We are artists, healers, spiritual practitioners, nomads, and refuseniks who will not be catalogued, commodified, or contained.</p>
-                    <p>ENAMTILA.space is not an organization — it is <strong>organized chaos</strong>, a <strong>temporary autonomous zone</strong>, a <strong>living contradiction</strong>. Named after the Sumerian "House of Life," we reclaim a word older than every empire that tried to silence us.</p>
-                    <p>We believe that <strong>art, healing, and revolution are inseparable</strong>. Creativity without resistance is decoration for the ruling class. Resistance without creativity is joyless duty. We fuse both: our existence is aesthetic rebellion, our rebellion is artistic and spiritual practice.</p>
-                </div>
-
-                <div class="manifesto-section reveal">
-                    <h3>🚫 What We Reject</h3>
-                    <p><strong>We reject borders</strong> that separate practitioners based on where they were born. Geography is an accident of birth, not a definition of identity or destiny.</p>
-                    <p><strong>We reject gatekeepers</strong> who determine whose art or spiritual practice is "legitimate" and whose is not. The gallery owners, critics, religious institutions, and "wellness" corporations who profit from controlling access have no power over us.</p>
-                    <p><strong>We reject exploitation</strong> of creators and healers by those who would commodify creativity and spirituality for profit while leaving practitioners struggling to survive. Art and healing are not products; they are manifestations of the human spirit.</p>
-                    <p><strong>We reject hierarchy</strong> that elevates some practices over others. Whether you paint, heal, write, dance, coach, or create in ways yet unnamed — your practice is valid, valuable, and vital.</p>
-                    <p><strong>We reject isolation</strong> that keeps practitioners separated and struggling alone. Together we are powerful. Together we are unstoppable. Together we are ENAMTILA.</p>
-                </div>
-
-                <div class="manifesto-section reveal">
-                    <h3>⚡ What We Sabotage</h3>
-                    <p><strong>We sabotage capitalism</strong> that turns art and healing into commodity and practitioners into content creators. <em>No more unpaid internships. No more "passion projects" that exploit us.</em></p>
-                    <p><strong>We sabotage nation-states</strong> that criminalize movement, cage migrants, and murder people for crossing imaginary lines. Your papers mean nothing. Your borders are violence. <em>We cross them anyway.</em></p>
-                    <p><strong>We sabotage art institutions</strong> — the museums built on colonial plunder, the galleries that launder oligarch money, the wellness industry that gentrifies spiritual practices. <em>We will never ask permission to create or heal.</em></p>
-                    <p><strong>We sabotage "professional" art and spirituality</strong> that require degrees, certifications, connections, and wealth to access. Art school is a class barrier. Institutional spirituality is control. <em>We learn from each other, in squats and streets, not classrooms.</em></p>
-                </div>
-
-                <div class="manifesto-section reveal">
-                    <h3>🔮 Our Vision</h3>
-                    <p>We envision a world where <strong>every practitioner has a place to create and heal</strong>, where housing is abundant and shared freely among our global family, where no creative or healing soul ever sleeps on the street while empty apartments stand as monuments to greed.</p>
-                    <p>We envision a world where <strong>art and healing are accessible to all</strong>, where galleries and healing spaces exist in streets and parks, where performances and ceremonies happen in squares and marketplaces, where creativity and spirituality are woven into the fabric of daily life.</p>
-                    <p>We envision a world where <strong>practitioners can sustain themselves</strong> through their work, where creative and healing labor is valued fairly, where the "starving artist" trope is replaced by thriving communities.</p>
-                    <p>We envision a world where <strong>borders dissolve</strong> and practitioners move freely across the planet, creating, healing, collaborating, and inspiring wherever their journey takes them.</p>
-                    <p style="color: var(--gold); font-family: var(--font-display); font-size: 1.1rem; font-style: italic; margin-top: var(--space-lg);">This is not a distant dream. We are building this world now, one connection at a time, one artwork at a time, one healing at a time, one practitioner at a time.</p>
-                </div>
-
-                <div class="manifesto-section reveal">
-                    <h3>✊ Call to Arms</h3>
-                    <p>If you have ever felt marginalized, exploited, or silenced — <strong>you belong here</strong>. If you create art or offer healing that challenges the status quo — <strong>you belong here</strong>. If you believe that another world is possible — <strong>you belong here</strong>.</p>
-                    <p style="text-align: center; font-family: var(--font-display); font-size: 1.5rem; color: var(--gold); margin-top: var(--space-xl);">ENAMTILA.space — House of Life<br><span style="font-size: 0.8em; color: var(--white-muted);">Since before borders. Until after empires.</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         NEWSLETTER
-         ========================================== -->
-    <section class="newsletter" id="newsletter">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-tag">Stay Connected</div>
-                <h2 class="section-title">Join the Signal</h2>
-                <p class="section-subtitle">Updates on events, opportunities, and collective news. No spam. No surveillance.</p>
-            </div>
-            <form class="newsletter-form reveal" onsubmit="handleNewsletter(event)">
-                <input type="email" placeholder="your@email.com" required>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         FOOTER
-         ========================================== -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">ENAMTILA.space</div>
-                    <p>House of Life — a decentralized global collective supporting spiritual practitioners, artists, and cultural catalysts since before borders existed.</p>
-                    <p class="hero-arabic" style="font-size: 0.9rem; margin-top: var(--space-md); animation: none;">بيت الحياة</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Explore</h4>
-                    <ul>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#tents">Tents</a></li>
-                        <li><a href="#marketplace">Marketplace</a></li>
-                        <li><a href="#radio">Radio</a></li>
-                        <li><a href="#practitioners">Practitioners</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Community</h4>
-                    <ul>
-                        <li><a href="#one-table">One Table, Two Friends</a></li>
-                        <li><a href="#couchsurfing">Stay With Us</a></li>
-                        <li><a href="#forums">Forums</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="#workshops">Workshops</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Connect</h4>
-                    <ul>
-                        <li><a href="#manifesto">Manifesto</a></li>
-                        <li><a href="#join">Join Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#partners">Partners</a></li>
-                        <li><a href="#challenges">Challenges</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 ENAMTILA.space. No rights reserved — art and healing belong to everyone.</p>
-                <span class="footer-tagline">House of Life — since before borders.</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ==========================================
-         JAVASCRIPT
-         ========================================== -->
     <script>
-        // ============================================
-        // STARFIELD ANIMATION
-        // ============================================
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -1621,14 +430,14 @@
 
         function createStars() {
             stars = [];
-            const count = Math.floor((canvas.width * canvas.height) / 8000);
+            const count = Math.floor((canvas.width * canvas.height) / 6000);
             for (let i = 0; i < count; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 1.5 + 0.3,
-                    speed: Math.random() * 0.15 + 0.02,
-                    opacity: Math.random() * 0.6 + 0.2,
+                    size: Math.random() * 2 + 0.3,
+                    speed: Math.random() * 0.2 + 0.02,
+                    opacity: Math.random() * 0.7 + 0.2,
                     pulse: Math.random() * Math.PI * 2
                 });
             }
@@ -1639,16 +448,16 @@
             const time = Date.now() * 0.001;
             stars.forEach(star => {
                 star.y -= star.speed;
-                if (star.y < -5) { star.y = canvas.height + 5; star.x = Math.random() * canvas.width; }
+                if (star.y < -5) { 
+                    star.y = canvas.height + 5; 
+                    star.x = Math.random() * canvas.width; 
+                }
                 const flicker = 0.5 + 0.5 * Math.sin(time * 2 + star.pulse);
                 const alpha = star.opacity * flicker;
-                
-                // Warm gold tint for some stars
                 const warmth = Math.random() > 0.7 ? 1 : 0;
                 const r = 220 + warmth * 35;
                 const g = 210 + warmth * 15;
                 const b = 200 - warmth * 60;
-                
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
@@ -1657,84 +466,14 @@
             requestAnimationFrame(animateStars);
         }
 
-        window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
+        window.addEventListener('resize', () => { 
+            resizeCanvas(); 
+            createStars(); 
+        });
+        
         resizeCanvas();
         createStars();
         animateStars();
-
-        // ============================================
-        // NAVIGATION SCROLL EFFECT
-        // ============================================
-        const nav = document.getElementById('mainNav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 80);
-        });
-
-        // ============================================
-        // MOBILE NAV TOGGLE
-        // ============================================
-        function toggleNav() {
-            const links = document.getElementById('navLinks');
-            const toggle = document.getElementById('navToggle');
-            links.classList.toggle('open');
-            toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
-        }
-
-        // ============================================
-        // SCROLL REVEAL
-        // ============================================
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-        // ============================================
-        // LANGUAGE TOGGLE (Placeholder)
-        // ============================================
-        function setLang(lang) {
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            if (lang === 'ar') {
-                document.documentElement.dir = 'rtl';
-                document.documentElement.lang = 'ar';
-            } else {
-                document.documentElement.dir = 'ltr';
-                document.documentElement.lang = 'en';
-            }
-        }
-
-        // ============================================
-        // NEWSLETTER HANDLER
-        // ============================================
-        function handleNewsletter(e) {
-            e.preventDefault();
-            const input = e.target.querySelector('input');
-            alert('Welcome to ENAMTILA.space, ' + input.value + ' 🏴');
-            input.value = '';
-        }
-
-        // ============================================
-        // SMOOTH SCROLL FOR NAV LINKS
-        // ============================================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Close mobile nav if open
-                    const links = document.getElementById('navLinks');
-                    if (links.classList.contains('open')) toggleNav();
-                }
-            });
-        });
-
-        console.log('🏴 ENAMTILA.space — House of Life — since before borders.');
     </script>
 </body>
 </html>
