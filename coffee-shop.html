@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop — ENAMTILA.space</title>
+    <meta name="description" content="Gather, create, and connect in our cosmic cafes. Fair-trade coffee, herbal elixirs, and sanctuary spaces across the globe.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .cosmic-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(26, 58, 92, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(42, 157, 143, 0.08) 0%, transparent 50%);
+        }
+
+        :root {
+            --clay: #c4956a;
+            --lapis: #1a3a5c;
+            --gold: #d4af37;
+            --void: #06080d;
+            --night: #0e1219;
+            --teal: #2a9d8f;
+            --white-warm: #f0ebe3;
+            --white-muted: rgba(240, 235, 227, 0.7);
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', system-ui, sans-serif;
+            --space-md: 1rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 5rem;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--void);
+            color: var(--white-warm);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-main {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 900;
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 8, 13, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-logo span {
+            font-weight: 600;
+            color: var(--white-warm);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--space-lg);
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--white-warm);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            background: rgba(212, 175, 55, 0.05);
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .nav-links a:hover {
+            color: var(--void);
+            background: var(--gold);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: var(--space-2xl) var(--space-lg);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 300;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero .subtitle {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--white-muted);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .menu-category {
+            background: rgba(14, 18, 25, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .menu-category h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .menu-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--white-warm);
+        }
+
+        .item-price {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .item-description {
+            font-size: 0.9rem;
+            color: var(--white-muted);
+            line-height: 1.5;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .location-card {
+            background: rgba(14, 18, 25, 0.5);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .location-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--teal);
+            box-shadow: 0 10px 30px rgba(42, 157, 143, 0.2);
+        }
+
+        .location-flag {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-city {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-address {
+            font-size: 0.9rem;
+            color: var(--white-muted);
+            margin-bottom: 1rem;
+        }
+
+        .location-hours {
+            font-size: 0.85rem;
+            color: var(--teal);
+        }
+
+        .philosophy {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: var(--space-2xl) auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .philosophy p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--white-muted);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="cosmic-glow"></div>
+
+    <nav class="nav-main">
+        <a href="home.html" class="nav-logo"><span>ENAM</span>TILA</a>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="tents.html">Tents</a></li>
+            <li><a href="coffee-shop.html">Coffee Shop</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="community.html">Community</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>☕ Coffee Shop</h1>
+            <p class="subtitle">Where ideas brew and souls gather</p>
+        </section>
+
+        <div class="philosophy">
+            <p><strong>Our cafes are sanctuaries.</strong> Not corporate chains extracting profit from your morning ritual, but community spaces where artists plot revolutions over fair-trade coffee, where healers offer readings between sips of herbal elixirs, where strangers become collaborators.</p>
+            <p>Every cup funds the movement. Every table is a potential conspiracy. Every conversation is resistance.</p>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Menu</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-category">
+                    <h3>☕ Coffee & Espresso</h3>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Cosmic Latte</span>
+                            <span class="item-price">$4</span>
+                        </div>
+                        <p class="item-description">Smooth espresso with oat milk, hint of cardamom. Fair-trade, direct from cooperatives.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Void Americano</span>
+                            <span class="item-price">$3</span>
+                        </div>
+                        <p class="item-description">Dark as the space between stars. Strong, bold, uncompromising.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Golden Hour Cappuccino</span>
+                            <span class="item-price">$4.50</span>
+                        </div>
+                        <p class="item-description">Silky foam, turmeric dust, honey drizzle. Anti-inflammatory magic.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Rebel's Cold Brew</span>
+                            <span class="item-price">$4</span>
+                        </div>
+                        <p class="item-description">24-hour steeped, served over ice. Smooth, never bitter.</p>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>🍵 Herbal Elixirs</h3>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Moon Milk</span>
+                            <span class="item-price">$5</span>
+                        </div>
+                        <p class="item-description">Ashwagandha, rose, vanilla, coconut milk. Calming, grounding, dreamy.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Witch's Brew</span>
+                            <span class="item-price">$5</span>
+                        </div>
+                        <p class="item-description">Hibiscus, elderflower, lemon, honey. Immunity boost, vibrant color.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Clarity Tea</span>
+                            <span class="item-price">$4</span>
+                        </div>
+                        <p class="item-description">Ginkgo, peppermint, ginger. Mental focus, creative flow.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Ancestor's Chai</span>
+                            <span class="item-price">$4.50</span>
+                        </div>
+                        <p class="item-description">Black tea, cinnamon, clove, star anise, oat milk. Warming, nostalgic.</p>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>🍰 Nourishment</h3>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Sumerian Flatbread</span>
+                            <span class="item-price">$6</span>
+                        </div>
+                        <p class="item-description">Warm flatbread, olive oil, za'atar, hummus. Ancient recipe, modern love.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Cosmic Croissant</span>
+                            <span class="item-price">$4</span>
+                        </div>
+                        <p class="item-description">Flaky, buttery, perfect. Vegan option available.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Artist's Bowl</span>
+                            <span class="item-price">$8</span>
+                        </div>
+                        <p class="item-description">Quinoa, roasted vegetables, tahini, greens. Fuel for creation.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <span class="item-name">Poet's Pastry</span>
+                            <span class="item-price">$5</span>
+                        </div>
+                        <p class="item-description">Seasonal fruit tart, almond cream. Sweet inspiration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Our Locations</h2>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <div class="location-flag">🇩🇪</div>
+                    <div class="location-city">Berlin</div>
+                    <div class="location-address">Kreuzberg District, Oranienstraße 42</div>
+                    <div class="location-hours">Open Daily: 7am - 11pm</div>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-flag">🇪🇸</div>
+                    <div class="location-city">Barcelona</div>
+                    <div class="location-address">El Raval, Carrer de la Riera Baixa 18</div>
+                    <div class="location-hours">Open Daily: 8am - Midnight</div>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-flag">🇵🇹</div>
+                    <div class="location-city">Lisbon</div>
+                    <div class="location-address">Bairro Alto, Rua da Rosa 29</div>
+                    <div class="location-hours">Open Daily: 9am - 1am</div>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-flag">🇪🇬</div>
+                    <div class="location-city">Cairo</div>
+                    <div class="location-address">Downtown, Talaat Harb Street</div>
+                    <div class="location-hours">Open Daily: 6am - 10pm</div>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-flag">🇲🇽</div>
+                    <div class="location-city">Mexico City</div>
+                    <div class="location-address">Roma Norte, Calle Colima 155</div>
+                    <div class="location-hours">Open Daily: 7am - Midnight</div>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-flag">🇹🇭</div>
+                    <div class="location-city">Bangkok</div>
+                    <div class="location-address">Ari, Soi Phahonyothin 5</div>
+                    <div class="location-hours">Open Daily: 8am - 11pm</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="philosophy">
+            <p><strong>Sliding Scale Always.</strong> Pay what you can. If you're broke, you're still welcome. If you're flush, pay it forward. No one is turned away for lack of funds.</p>
+            <p>🏴 Coffee is a right, not a luxury.</p>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 6000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.3,
+                    speed: Math.random() * 0.2 + 0.02,
+                    opacity: Math.random() * 0.7 + 0.2
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.y -= star.speed;
+                if (star.y < -5) { 
+                    star.y = canvas.height + 5; 
+                    star.x = Math.random() * canvas.width; 
+                }
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(220, 210, 200, ${star.opacity})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', () => { 
+            resizeCanvas(); 
+            createStars(); 
+        });
+        
+        resizeCanvas();
+        createStars();
+        animateStars();
+    </script>
+</body>
+</html>
