@@ -1,0 +1,166 @@
+/* ============================================
+   ENAMTILA.space — SHARED STYLES
+   Used across all pages
+   ============================================ */
+
+:root {
+    /* Core Palette — Ancient Earth meets Cosmos */
+    --clay: #c4956a;
+    --clay-light: #d4a97a;
+    --clay-dark: #8b6914;
+    --lapis: #1a3a5c;
+    --lapis-deep: #0d1f33;
+    --lapis-glow: #2a5a8c;
+    --gold: #d4af37;
+    --gold-bright: #ffd700;
+    --gold-muted: #b8960b;
+    --void: #06080d;
+    --void-warm: #0a0d14;
+    --night: #0e1219;
+    --sand: #f0e6d3;
+    --sand-light: #f7f1e6;
+    --ink: #1a1a1a;
+    --ember: #bf4a28;
+    --teal: #2a9d8f;
+    --purple: #6b4c7a;
+    --white-warm: #f0ebe3;
+    --white-muted: rgba(240, 235, 227, 0.7);
+
+    /* Typography */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Outfit', system-ui, sans-serif;
+    --font-arabic: 'Noto Kufi Arabic', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --space-2xl: 5rem;
+    --space-3xl: 8rem;
+
+    /* Transitions */
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+    font-family: var(--font-body);
+    background: var(--void);
+    color: var(--white-warm);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Container */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s var(--ease-out);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--gold);
+    color: var(--void);
+}
+
+.btn-primary:hover {
+    background: var(--gold-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--white-warm);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+}
+
+.section-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(212, 175, 55, 0.5);
+    margin-bottom: var(--space-sm);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--white-warm);
+    margin-bottom: var(--space-md);
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--white-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* Page Header */
+.page-header {
+    padding: 120px var(--space-lg) var(--space-3xl);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--white-warm);
+    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+}
+
+.page-subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white-muted);
+    max-width: 700px;
+    margin: 0 auto;
+}

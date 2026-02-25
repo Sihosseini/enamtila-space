@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practitioners — ENAMTILA.space</title>
+    <meta name="description" content="Meet the spiritual practitioners, healers, artists, and cultural catalysts who make up our global collective.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .cosmic-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 30% 40%, rgba(107, 76, 122, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(42, 157, 143, 0.08) 0%, transparent 50%);
+        }
+
+        .nav-main {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 900;
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 8, 13, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-logo span {
+            font-weight: 600;
+            color: var(--white-warm);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--white-muted);
+            text-decoration: none;
+            transition: color 0.3s var(--ease-out);
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .nav-links .dropdown {
+            position: relative;
+        }
+
+        .nav-links .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(14, 18, 25, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            padding: var(--space-sm);
+            min-width: 220px;
+            opacity: 0;
+            transition: opacity 0.3s var(--ease-out);
+        }
+
+        .nav-links .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 8px 16px;
+            font-size: 0.78rem;
+            border-radius: 8px;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .practitioners-section {
+            padding: var(--space-3xl) 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .practitioners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .practitioner-card {
+            background: rgba(14, 18, 25, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 16px;
+            padding: var(--space-xl);
+            text-align: center;
+            transition: all 0.4s var(--ease-out);
+            cursor: pointer;
+        }
+
+        .practitioner-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.25);
+            background: rgba(14, 18, 25, 0.8);
+        }
+
+        .practitioner-icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: var(--space-md);
+        }
+
+        .practitioner-type {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: var(--space-sm);
+        }
+
+        .practitioner-name {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--white-warm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .practitioner-location {
+            font-size: 0.85rem;
+            color: var(--white-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .practitioner-bio {
+            font-size: 0.9rem;
+            color: var(--white-muted);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+        }
+
+        .practitioner-specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            justify-content: center;
+        }
+
+        .specialty-tag {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            color: var(--clay-light);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .practitioners-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="cosmic-glow"></div>
+
+    <nav class="nav-main">
+        <a href="index.html" class="nav-logo"><span>ENAM</span>TILA.space</a>
+        <ul class="nav-links">
+            <li><a href="index.html#pillars">Ecosystem</a></li>
+            <li class="dropdown">
+                <a href="practitioners.html">Practitioners</a>
+                <div class="dropdown-content">
+                    <a href="#coaches">🔮 Spiritual Coaches</a>
+                    <a href="#healers">🌿 Healers</a>
+                    <a href="#psychics">✨ Psychics</a>
+                    <a href="#writers">✍️ Writers</a>
+                    <a href="#artists">🎨 Artists</a>
+                    <a href="#speakers">🎤 Speakers</a>
+                </div>
+            </li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="tents.html">Tents</a></li>
+            <li><a href="marketplace.html">Marketplace</a></li>
+            <li><a href="community.html">Community</a></li>
+        </ul>
+        <button class="nav-toggle" onclick="toggleNav()">☰</button>
+    </nav>
+
+    <header class="page-header">
+        <h1 class="page-title">Practitioners</h1>
+        <p class="page-subtitle">The healers, creators, and visionaries who refuse to be erased</p>
+    </header>
+
+    <!-- Spiritual Coaches -->
+    <section class="practitioners-section" id="coaches">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Guidance</div>
+                <h2 class="section-title">Spiritual Coaches</h2>
+                <p class="section-subtitle">Guides helping others navigate the path between worlds</p>
+            </div>
+            <div class="practitioners-grid">
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🔮</span>
+                    <div class="practitioner-type">Spiritual Coach</div>
+                    <h3 class="practitioner-name">Amara Osei</h3>
+                    <p class="practitioner-location">🇬🇭 Accra → 🇩🇪 Berlin</p>
+                    <p class="practitioner-bio">Blending West African ancestral wisdom with modern coaching techniques, Amara helps practitioners reconnect with their purpose beyond capitalist definitions of success.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Ancestral Work</span>
+                        <span class="specialty-tag">Purpose Finding</span>
+                        <span class="specialty-tag">Decolonial Practice</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🌙</span>
+                    <div class="practitioner-type">Spiritual Coach</div>
+                    <h3 class="practitioner-name">Kai Chen</h3>
+                    <p class="practitioner-location">🇨🇳 Shanghai → 🇹🇭 Bangkok</p>
+                    <p class="practitioner-bio">Integrating Taoist philosophy with contemporary spiritual practice, Kai guides artists and healers in finding balance between creation and survival.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Taoist Wisdom</span>
+                        <span class="specialty-tag">Creative Flow</span>
+                        <span class="specialty-tag">Energy Work</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">✨</span>
+                    <div class="practitioner-type">Spiritual Coach</div>
+                    <h3 class="practitioner-name">Luna Morales</h3>
+                    <p class="practitioner-location">🇲🇽 Mexico City → Nomadic</p>
+                    <p class="practitioner-bio">Curandera and spiritual guide working with plant medicine traditions and modern trauma healing to support displaced artists and migrants.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Plant Medicine</span>
+                        <span class="specialty-tag">Trauma Healing</span>
+                        <span class="specialty-tag">Migration Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Healers -->
+    <section class="practitioners-section" id="healers">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Healing</div>
+                <h2 class="section-title">Healers</h2>
+                <p class="section-subtitle">Practitioners of ancient and modern healing arts</p>
+            </div>
+            <div class="practitioners-grid">
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🌿</span>
+                    <div class="practitioner-type">Herbalist</div>
+                    <h3 class="practitioner-name">Yasmin Al-Rashid</h3>
+                    <p class="practitioner-location">🇪🇬 Cairo → 🇵🇹 Lisbon</p>
+                    <p class="practitioner-bio">Master herbalist combining Middle Eastern traditional medicine with European herbal practices, creating remedies for the displaced and weary.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Herbal Medicine</span>
+                        <span class="specialty-tag">Traditional Remedies</span>
+                        <span class="specialty-tag">Plant Alchemy</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🙏</span>
+                    <div class="practitioner-type">Bodyworker</div>
+                    <h3 class="practitioner-name">Thao Nguyen</h3>
+                    <p class="practitioner-location">🇻🇳 Hanoi</p>
+                    <p class="practitioner-bio">Trained in traditional Vietnamese healing massage and energy work, offering free sessions to traveling artists and practitioners in need.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Massage Therapy</span>
+                        <span class="specialty-tag">Energy Healing</span>
+                        <span class="specialty-tag">Acupressure</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">💆</span>
+                    <div class="practitioner-type">Sound Healer</div>
+                    <h3 class="practitioner-name">Ravi Sharma</h3>
+                    <p class="practitioner-location">🇮🇳 Mumbai → 🇨🇿 Prague</p>
+                    <p class="practitioner-bio">Using singing bowls, gongs, and voice to create healing soundscapes, Ravi offers sessions in ENAMTILA tents across Europe.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Sound Healing</span>
+                        <span class="specialty-tag">Vibrational Therapy</span>
+                        <span class="specialty-tag">Meditation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Psychics -->
+    <section class="practitioners-section" id="psychics">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Divination</div>
+                <h2 class="section-title">Psychics & Diviners</h2>
+                <p class="section-subtitle">Those who read the patterns invisible to most</p>
+            </div>
+            <div class="practitioners-grid">
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🔯</span>
+                    <div class="practitioner-type">Tarot Reader</div>
+                    <h3 class="practitioner-name">Sofia Rossi</h3>
+                    <p class="practitioner-location">🇮🇹 Rome → 🇪🇸 Barcelona</p>
+                    <p class="practitioner-bio">Radical tarot reader using cards to help practitioners navigate systems of oppression and find paths to liberation.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Tarot</span>
+                        <span class="specialty-tag">Liberation Work</span>
+                        <span class="specialty-tag">Shadow Work</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🌟</span>
+                    <div class="practitioner-type">Astrologer</div>
+                    <h3 class="practitioner-name">Zara Kimathi</h3>
+                    <p class="practitioner-location">🇰🇪 Nairobi → 🇳🇬 Lagos</p>
+                    <p class="practitioner-bio">Decolonial astrologer reclaiming African star wisdom and offering cosmic guidance for artists and activists.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Astrology</span>
+                        <span class="specialty-tag">African Cosmology</span>
+                        <span class="specialty-tag">Timing</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🔮</span>
+                    <div class="practitioner-type">Medium</div>
+                    <h3 class="practitioner-name">Miriam Santos</h3>
+                    <p class="practitioner-location">🇧🇷 São Paulo</p>
+                    <p class="practitioner-bio">Connecting practitioners with ancestral guidance and helping displaced people maintain spiritual connections to their homelands.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Mediumship</span>
+                        <span class="specialty-tag">Ancestral Connection</span>
+                        <span class="specialty-tag">Spirit Work</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writers -->
+    <section class="practitioners-section" id="writers">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Words</div>
+                <h2 class="section-title">Writers</h2>
+                <p class="section-subtitle">Wielding language as both weapon and medicine</p>
+            </div>
+            <div class="practitioners-grid">
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">✍️</span>
+                    <div class="practitioner-type">Poet</div>
+                    <h3 class="practitioner-name">Omar Hassan</h3>
+                    <p class="practitioner-location">🇸🇾 Damascus → 🇩🇪 Berlin</p>
+                    <p class="practitioner-bio">Poet writing in Arabic, German, and English about displacement, resistance, and the spaces between languages.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Poetry</span>
+                        <span class="specialty-tag">Translation</span>
+                        <span class="specialty-tag">Multilingual Work</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">📖</span>
+                    <div class="practitioner-type">Essayist</div>
+                    <h3 class="practitioner-name">Ana Ruiz</h3>
+                    <p class="practitioner-location">🇦🇷 Buenos Aires → Nomadic</p>
+                    <p class="practitioner-bio">Writing about art, anarchism, and autonomy from squats and tents across Latin America and Europe.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Essays</span>
+                        <span class="specialty-tag">Political Writing</span>
+                        <span class="specialty-tag">Cultural Criticism</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">📝</span>
+                    <div class="practitioner-type">Storyteller</div>
+                    <h3 class="practitioner-name">Kofi Mensah</h3>
+                    <p class="practitioner-location">🇬🇭 Accra → 🇲🇦 Marrakech</p>
+                    <p class="practitioner-bio">Oral storyteller and writer preserving and reimagining West African narratives for diaspora communities.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Storytelling</span>
+                        <span class="specialty-tag">Oral Tradition</span>
+                        <span class="specialty-tag">Cultural Preservation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artists -->
+    <section class="practitioners-section" id="artists">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Visual</div>
+                <h2 class="section-title">Artists</h2>
+                <p class="section-subtitle">Creating beauty as an act of defiance</p>
+            </div>
+            <div class="practitioners-grid">
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🎨</span>
+                    <div class="practitioner-type">Painter</div>
+                    <h3 class="practitioner-name">Elena Popescu</h3>
+                    <p class="practitioner-location">🇷🇴 Bucharest → 🇭🇺 Budapest</p>
+                    <p class="practitioner-bio">Painter creating large-scale works exploring themes of migration, memory, and belonging across Eastern Europe.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Oil Painting</span>
+                        <span class="specialty-tag">Murals</span>
+                        <span class="specialty-tag">Public Art</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">📷</span>
+                    <div class="practitioner-type">Photographer</div>
+                    <h3 class="practitioner-name">Jin Park</h3>
+                    <p class="practitioner-location">🇰🇷 Seoul → 🇯🇵 Tokyo → 🇹🇭 Bangkok</p>
+                    <p class="practitioner-bio">Documentary photographer capturing the lives of nomadic artists and spiritual practitioners across Asia.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Documentary</span>
+                        <span class="specialty-tag">Portrait</span>
+                        <span class="specialty-tag">Street Photography</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🎭</span>
+                    <div class="practitioner-type">Performance Artist</div>
+                    <h3 class="practitioner-name">Nia Williams</h3>
+                    <p class="practitioner-location">🇺🇸 New Orleans → Nomadic</p>
+                    <p class="practitioner-bio">Performance artist using body, ritual, and public space to challenge borders and celebrate Black diasporic spirituality.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Performance</span>
+                        <span class="specialty-tag">Ritual Art</span>
+                        <span class="specialty-tag">Public Intervention</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers -->
+    <section class="practitioners-section" id="speakers">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Voice</div>
+                <h2 class="section-title">Speakers & Educators</h2>
+                <p class="section-subtitle">Sharing knowledge outside institutional walls</p>
+            </div>
+            <div class="practitioners-grid">
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🎤</span>
+                    <div class="practitioner-type">Speaker</div>
+                    <h3 class="practitioner-name">Dr. Fatima Noor</h3>
+                    <p class="practitioner-location">🇵🇰 Karachi → 🇬🇧 London → Nomadic</p>
+                    <p class="practitioner-bio">Former academic who left the university to teach decolonial theory in squats, tents, and public spaces.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Decolonial Theory</span>
+                        <span class="specialty-tag">Public Education</span>
+                        <span class="specialty-tag">Workshops</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">🗣️</span>
+                    <div class="practitioner-type">Educator</div>
+                    <h3 class="practitioner-name">Marcus Silva</h3>
+                    <p class="practitioner-location">🇧🇷 Rio de Janeiro → 🇵🇹 Lisbon</p>
+                    <p class="practitioner-bio">Teaching radical art history and creative resistance strategies to practitioners across the Portuguese-speaking world.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Art History</span>
+                        <span class="specialty-tag">Creative Resistance</span>
+                        <span class="specialty-tag">Pedagogy</span>
+                    </div>
+                </div>
+                <div class="practitioner-card">
+                    <span class="practitioner-icon">💬</span>
+                    <div class="practitioner-type">Facilitator</div>
+                    <h3 class="practitioner-name">Yuki Tanaka</h3>
+                    <p class="practitioner-location">🇯🇵 Kyoto → 🇩🇪 Berlin</p>
+                    <p class="practitioner-bio">Facilitating workshops on collective decision-making, consensus, and horizontal organizing for artist collectives.</p>
+                    <div class="practitioner-specialties">
+                        <span class="specialty-tag">Facilitation</span>
+                        <span class="specialty-tag">Collective Organizing</span>
+                        <span class="specialty-tag">Consensus Building</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 8000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5 + 0.3,
+                    speed: Math.random() * 0.15 + 0.02,
+                    opacity: Math.random() * 0.6 + 0.2,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const time = Date.now() * 0.001;
+            stars.forEach(star => {
+                star.y -= star.speed;
+                if (star.y < -5) { star.y = canvas.height + 5; star.x = Math.random() * canvas.width; }
+                const flicker = 0.5 + 0.5 * Math.sin(time * 2 + star.pulse);
+                const alpha = star.opacity * flicker;
+                const warmth = Math.random() > 0.7 ? 1 : 0;
+                const r = 220 + warmth * 35;
+                const g = 210 + warmth * 15;
+                const b = 200 - warmth * 60;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
+        resizeCanvas();
+        createStars();
+        animateStars();
+
+        function toggleNav() {
+            const links = document.getElementById('navLinks');
+            const toggle = document.getElementById('navToggle');
+            links.classList.toggle('open');
+            toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+        }
+    </script>
+</body>
+</html>

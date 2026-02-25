@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENAMTILA.space — Choose Your Gateway</title>
+    <meta name="description" content="Select your language and city to enter ENAMTILA.space — A global sanctuary for spiritual practitioners, artists, and cultural catalysts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --clay: #c4956a;
+            --lapis: #1a3a5c;
+            --gold: #d4af37;
+            --void: #06080d;
+            --night: #0e1219;
+            --teal: #2a9d8f;
+            --purple: #6b4c7a;
+            --white-warm: #f0ebe3;
+            --white-muted: rgba(240, 235, 227, 0.7);
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', system-ui, sans-serif;
+            --font-arabic: 'Noto Kufi Arabic', sans-serif;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--void);
+            color: var(--white-warm);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .cosmic-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 30% 40%, rgba(26, 58, 92, 0.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(42, 157, 143, 0.1) 0%, transparent 40%);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            width: 90%;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s var(--ease-out);
+        }
+
+        .logo span {
+            font-weight: 700;
+            color: var(--white-warm);
+        }
+
+        .tagline {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--white-muted);
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s var(--ease-out) 0.2s both;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--white-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Language Selection */
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+            animation: fadeInUp 1s var(--ease-out) 0.4s both;
+        }
+
+        .language-card {
+            background: rgba(14, 18, 25, 0.6);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out);
+            text-decoration: none;
+            color: var(--white-warm);
+        }
+
+        .language-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .language-flag {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .language-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .language-native {
+            font-size: 0.9rem;
+            color: var(--white-muted);
+        }
+
+        /* City Selection */
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.2rem;
+            animation: fadeInUp 1s var(--ease-out) 0.6s both;
+        }
+
+        .city-card {
+            background: rgba(14, 18, 25, 0.5);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+            text-decoration: none;
+            color: var(--white-warm);
+        }
+
+        .city-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--teal);
+            background: rgba(42, 157, 143, 0.1);
+            box-shadow: 0 10px 30px rgba(42, 157, 143, 0.2);
+        }
+
+        .city-flag {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .city-name {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .city-country {
+            font-size: 0.75rem;
+            color: var(--white-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent);
+            margin: 4rem 0;
+        }
+
+        .skip-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 12px 30px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 8px;
+            color: var(--white-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .skip-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; }
+            .tagline { font-size: 1.1rem; }
+            .section-title { font-size: 1.5rem; }
+            .language-grid { grid-template-columns: 1fr 1fr; }
+            .cities-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="cosmic-glow"></div>
+
+    <div class="container">
+        <h1 class="logo"><span>ENAM</span>TILA.space</h1>
+        <p class="tagline">House of Life — Since before borders. Until after empires.</p>
+
+        <!-- Language Selection -->
+        <section>
+            <h2 class="section-title">Choose Your Language</h2>
+            <p class="section-subtitle">Select your preferred language to continue</p>
+            
+            <div class="language-grid">
+                <a href="home.html?lang=en" class="language-card">
+                    <span class="language-flag">🇬🇧</span>
+                    <div class="language-name">English</div>
+                    <div class="language-native">English</div>
+                </a>
+
+                <a href="home.html?lang=es" class="language-card">
+                    <span class="language-flag">🇪🇸</span>
+                    <div class="language-name">Spanish</div>
+                    <div class="language-native">Español</div>
+                </a>
+
+                <a href="home.html?lang=fr" class="language-card">
+                    <span class="language-flag">🇫🇷</span>
+                    <div class="language-name">French</div>
+                    <div class="language-native">Français</div>
+                </a>
+
+                <a href="home.html?lang=ar" class="language-card">
+                    <span class="language-flag">🇸🇦</span>
+                    <div class="language-name">Arabic</div>
+                    <div class="language-native">العربية</div>
+                </a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- City Selection -->
+        <section>
+            <h2 class="section-title">Or Choose Your City</h2>
+            <p class="section-subtitle">Connect directly with your local ENAMTILA tent</p>
+            
+            <div class="cities-grid">
+                <a href="tents.html#bangkok" class="city-card">
+                    <span class="city-flag">🇹🇭</span>
+                    <div class="city-name">Bangkok</div>
+                    <div class="city-country">Thailand</div>
+                </a>
+
+                <a href="tents.html#hanoi" class="city-card">
+                    <span class="city-flag">🇻🇳</span>
+                    <div class="city-name">Hanoi</div>
+                    <div class="city-country">Vietnam</div>
+                </a>
+
+                <a href="tents.html#budapest" class="city-card">
+                    <span class="city-flag">🇭🇺</span>
+                    <div class="city-name">Budapest</div>
+                    <div class="city-country">Hungary</div>
+                </a>
+
+                <a href="tents.html#prague" class="city-card">
+                    <span class="city-flag">🇨🇿</span>
+                    <div class="city-name">Prague</div>
+                    <div class="city-country">Czech Republic</div>
+                </a>
+
+                <a href="tents.html#berlin" class="city-card">
+                    <span class="city-flag">🇩🇪</span>
+                    <div class="city-name">Berlin</div>
+                    <div class="city-country">Germany</div>
+                </a>
+
+                <a href="tents.html#barcelona" class="city-card">
+                    <span class="city-flag">🇪🇸</span>
+                    <div class="city-name">Barcelona</div>
+                    <div class="city-country">Spain</div>
+                </a>
+
+                <a href="tents.html#lisbon" class="city-card">
+                    <span class="city-flag">🇵🇹</span>
+                    <div class="city-name">Lisbon</div>
+                    <div class="city-country">Portugal</div>
+                </a>
+
+                <a href="tents.html#cairo" class="city-card">
+                    <span class="city-flag">🇪🇬</span>
+                    <div class="city-name">Cairo</div>
+                    <div class="city-country">Egypt</div>
+                </a>
+
+                <a href="tents.html#marrakech" class="city-card">
+                    <span class="city-flag">🇲🇦</span>
+                    <div class="city-name">Marrakech</div>
+                    <div class="city-country">Morocco</div>
+                </a>
+
+                <a href="tents.html#mexico" class="city-card">
+                    <span class="city-flag">🇲🇽</span>
+                    <div class="city-name">Mexico City</div>
+                    <div class="city-country">Mexico</div>
+                </a>
+
+                <a href="tents.html#saopaulo" class="city-card">
+                    <span class="city-flag">🇧🇷</span>
+                    <div class="city-name">São Paulo</div>
+                    <div class="city-country">Brazil</div>
+                </a>
+
+                <a href="tents.html#lagos" class="city-card">
+                    <span class="city-flag">🇳🇬</span>
+                    <div class="city-name">Lagos</div>
+                    <div class="city-country">Nigeria</div>
+                </a>
+
+                <a href="tents.html#paris" class="city-card">
+                    <span class="city-flag">🇫🇷</span>
+                    <div class="city-name">Paris</div>
+                    <div class="city-country">France</div>
+                </a>
+
+                <a href="tents.html#london" class="city-card">
+                    <span class="city-flag">🇬🇧</span>
+                    <div class="city-name">London</div>
+                    <div class="city-country">United Kingdom</div>
+                </a>
+
+                <a href="tents.html#newyork" class="city-card">
+                    <span class="city-flag">🇺🇸</span>
+                    <div class="city-name">New York</div>
+                    <div class="city-country">USA</div>
+                </a>
+
+                <a href="tents.html#tokyo" class="city-card">
+                    <span class="city-flag">🇯🇵</span>
+                    <div class="city-name">Tokyo</div>
+                    <div class="city-country">Japan</div>
+                </a>
+
+                <a href="tents.html#seoul" class="city-card">
+                    <span class="city-flag">🇰🇷</span>
+                    <div class="city-name">Seoul</div>
+                    <div class="city-country">South Korea</div>
+                </a>
+
+                <a href="tents.html#istanbul" class="city-card">
+                    <span class="city-flag">🇹🇷</span>
+                    <div class="city-name">Istanbul</div>
+                    <div class="city-country">Turkey</div>
+                </a>
+
+                <a href="tents.html#buenosaires" class="city-card">
+                    <span class="city-flag">🇦🇷</span>
+                    <div class="city-name">Buenos Aires</div>
+                    <div class="city-country">Argentina</div>
+                </a>
+
+                <a href="tents.html#capetown" class="city-card">
+                    <span class="city-flag">🇿🇦</span>
+                    <div class="city-name">Cape Town</div>
+                    <div class="city-country">South Africa</div>
+                </a>
+            </div>
+        </section>
+
+        <a href="home.html" class="skip-link">Enter Without Selection →</a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 6000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.3,
+                    speed: Math.random() * 0.2 + 0.02,
+                    opacity: Math.random() * 0.7 + 0.2,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const time = Date.now() * 0.001;
+            stars.forEach(star => {
+                star.y -= star.speed;
+                if (star.y < -5) { 
+                    star.y = canvas.height + 5; 
+                    star.x = Math.random() * canvas.width; 
+                }
+                const flicker = 0.5 + 0.5 * Math.sin(time * 2 + star.pulse);
+                const alpha = star.opacity * flicker;
+                const warmth = Math.random() > 0.7 ? 1 : 0;
+                const r = 220 + warmth * 35;
+                const g = 210 + warmth * 15;
+                const b = 200 - warmth * 60;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', () => { 
+            resizeCanvas(); 
+            createStars(); 
+        });
+        
+        resizeCanvas();
+        createStars();
+        animateStars();
+    </script>
+</body>
+</html>
