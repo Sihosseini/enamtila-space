@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio — ENAMTILA.space</title>
+    <meta name="description" content="ENAMTILA Radio: Podcasts, live streams, audio archives, and sonic resistance from our global network of artists and activists.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .cosmic-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 30% 50%, rgba(26, 58, 92, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(107, 76, 122, 0.15) 0%, transparent 50%);
+        }
+
+        :root {
+            --clay: #c4956a;
+            --lapis: #1a3a5c;
+            --gold: #d4af37;
+            --void: #06080d;
+            --purple: #6b4c7a;
+            --teal: #2a9d8f;
+            --white-warm: #f0ebe3;
+            --white-muted: rgba(240, 235, 227, 0.7);
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', system-ui, sans-serif;
+            --space-md: 1rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 5rem;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--void);
+            color: var(--white-warm);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-main {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 900;
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 8, 13, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-logo span {
+            font-weight: 600;
+            color: var(--white-warm);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--space-lg);
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--white-warm);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            background: rgba(212, 175, 55, 0.05);
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .nav-links a:hover {
+            color: var(--void);
+            background: var(--gold);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: var(--space-2xl) var(--space-lg);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            font-weight: 300;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 0.15em;
+        }
+
+        .hero .subtitle {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-style: italic;
+            color: var(--white-muted);
+            margin-bottom: 2rem;
+        }
+
+        .live-player {
+            background: rgba(26, 58, 92, 0.2);
+            border: 2px solid rgba(26, 58, 92, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: var(--space-2xl) auto;
+            text-align: center;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(191, 74, 40, 0.2);
+            border: 1px solid rgba(191, 74, 40, 0.5);
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin-bottom: 1.5rem;
+        }
+
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .live-text {
+            color: #ff4444;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+        }
+
+        .now-playing {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .now-playing-artist {
+            font-size: 1.2rem;
+            color: var(--white-muted);
+            margin-bottom: 2rem;
+        }
+
+        .play-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 15px 40px;
+            background: var(--lapis);
+            color: var(--white-warm);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .play-button:hover {
+            background: var(--gold);
+            color: var(--void);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .shows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .show-card {
+            background: rgba(14, 18, 25, 0.6);
+            border: 1px solid rgba(107, 76, 122, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s var(--ease-out);
+        }
+
+        .show-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--purple);
+            box-shadow: 0 12px 35px rgba(107, 76, 122, 0.3);
+        }
+
+        .show-cover {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(26, 58, 92, 0.4), rgba(107, 76, 122, 0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .show-content {
+            padding: 1.5rem;
+        }
+
+        .show-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .show-host {
+            font-size: 1rem;
+            color: var(--purple);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .show-description {
+            font-size: 0.95rem;
+            color: var(--white-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .show-schedule {
+            font-size: 0.85rem;
+            color: var(--teal);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .listen-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 25px;
+            background: var(--purple);
+            color: var(--white-warm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .listen-button:hover {
+            background: var(--gold);
+            color: var(--void);
+            transform: translateY(-2px);
+        }
+
+        .manifesto-box {
+            background: rgba(26, 58, 92, 0.1);
+            border: 2px solid rgba(26, 58, 92, 0.4);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: var(--space-2xl) auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .manifesto-box p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--white-muted);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .shows-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="cosmic-glow"></div>
+
+    <nav class="nav-main">
+        <a href="home.html" class="nav-logo"><span>ENAM</span>TILA</a>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="radio.html">Radio</a></li>
+            <li><a href="live-shows.html">Live Shows</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="community.html">Community</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>📻 RADIO</h1>
+            <p class="subtitle">Voices of resistance, sounds of liberation, frequencies of the future</p>
+        </section>
+
+        <div class="live-player">
+            <div class="live-indicator">
+                <span class="live-dot"></span>
+                <span class="live-text">Live Now</span>
+            </div>
+            <div class="now-playing">Midnight Frequencies</div>
+            <div class="now-playing-artist">with DJ Cosmic Rebel</div>
+            <button class="play-button">
+                <span>▶</span>
+                <span>Listen Live</span>
+            </button>
+        </div>
+
+        <div class="manifesto-box">
+            <p><strong>ENAMTILA Radio is not corporate radio.</strong></p>
+            <p>No ads. No algorithms. No censorship. Just voices that matter, music that moves, and stories that challenge the status quo. Broadcasting from our global network of tents, we amplify what the mainstream silences.</p>
+            <p>This is pirate radio for the digital age. This is resistance on the airwaves.</p>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Shows & Podcasts</h2>
+            
+            <div class="shows-grid">
+                <div class="show-card">
+                    <div class="show-cover">🌙</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Lunar Transmissions</h3>
+                        <p class="show-host">Hosted by Luna Mystica</p>
+                        <p class="show-description">Tarot readings, astrology insights, and mystical conversations aligned with the moon cycles. Exploring the cosmic and the occult.</p>
+                        <p class="show-schedule">Every Full & New Moon • 9pm GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">🔥</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Radical Voices</h3>
+                        <p class="show-host">Hosted by Various Activists</p>
+                        <p class="show-description">Interviews with organizers, revolutionaries, and movement builders. Stories from the frontlines of resistance worldwide.</p>
+                        <p class="show-schedule">Wednesdays • 7pm GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">🎵</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Sonic Sanctuary</h3>
+                        <p class="show-host">Curated by Sound Healers</p>
+                        <p class="show-description">Ambient soundscapes, healing frequencies, and meditative music. Two hours of sonic peace for your soul.</p>
+                        <p class="show-schedule">Sundays • 6am GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">📚</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Banned Books</h3>
+                        <p class="show-host">Hosted by The Librarian</p>
+                        <p class="show-description">Reading censored texts, banned literature, and revolutionary writings. What they don't want you to read, we broadcast.</p>
+                        <p class="show-schedule">Fridays • 8pm GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">🌍</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Global Grooves</h3>
+                        <p class="show-host">Rotating DJs from Each Tent</p>
+                        <p class="show-description">Music from around the world. Each week, a different tent showcases their local sounds, traditional rhythms, and underground scenes.</p>
+                        <p class="show-schedule">Saturdays • 10pm GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">🎤</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Open Mic Radio</h3>
+                        <p class="show-host">Community Submissions</p>
+                        <p class="show-description">Your voice, your story, your art. Submit recordings of poetry, music, rants, or manifestos. We broadcast the people.</p>
+                        <p class="show-schedule">Tuesdays • 9pm GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">⚡</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Midnight Frequencies</h3>
+                        <p class="show-host">DJ Cosmic Rebel</p>
+                        <p class="show-description">Experimental electronic, ambient techno, and cosmic soundscapes. Late-night transmissions for insomniacs and dreamers.</p>
+                        <p class="show-schedule">Fridays & Saturdays • Midnight-3am GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">✊</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Protest Songs</h3>
+                        <p class="show-host">Curated by The Collective</p>
+                        <p class="show-description">Music of resistance from every era and every struggle. From union songs to punk anthems, folk ballads to hip-hop manifestos.</p>
+                        <p class="show-schedule">Mondays • 6pm GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-cover">🌱</div>
+                    <div class="show-content">
+                        <h3 class="show-title">Herbalism Hour</h3>
+                        <p class="show-host">Hosted by Plant Witches</p>
+                        <p class="show-description">Herbal medicine, plant magic, and traditional healing wisdom. Reclaiming ancestral knowledge suppressed by pharmaceutical capitalism.</p>
+                        <p class="show-schedule">Thursdays • 7pm GMT</p>
+                        <a href="#" class="listen-button">Listen</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="manifesto-box">
+            <p><strong>Want to host a show?</strong> ENAMTILA Radio is community-run. If you have something to say, a story to tell, or music to share, we want to hear it.</p>
+            <p>No corporate gatekeepers. No content algorithms. Just real voices, real stories, real resistance.</p>
+            <p><a href="bookings.html" class="listen-button">Propose a Show</a></p>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 6000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.3,
+                    speed: Math.random() * 0.2 + 0.02,
+                    opacity: Math.random() * 0.7 + 0.2
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.y -= star.speed;
+                if (star.y < -5) { 
+                    star.y = canvas.height + 5; 
+                    star.x = Math.random() * canvas.width; 
+                }
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(220, 210, 200, ${star.opacity})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', () => { 
+            resizeCanvas(); 
+            createStars(); 
+        });
+        
+        resizeCanvas();
+        createStars();
+        animateStars();
+
+        // Play button functionality (placeholder)
+        document.querySelector('.play-button').addEventListener('click', function() {
+            alert('Live stream player would launch here. Integration with audio streaming service needed.');
+        });
+    </script>
+</body>
+</html>
