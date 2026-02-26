@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction — Being Rebuilt | Enamtila</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cosmic-dark: #030310;
+            --primary-gold: #c9a84c;
+            --gold-light: #f0d080;
+            --cosmic-white: #e8e4f0;
+            --void-deep: #010108;
+            --rust: rgba(180,100,20,0.6);
+            --amber: rgba(220,140,40,0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--void-deep);
+            color: var(--cosmic-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ===== CRACKED TEXTURE BG ===== */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* Vertical crack lines */
+        .bg-layer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(92deg, transparent 48.5%, rgba(201,168,76,0.04) 49%, rgba(201,168,76,0.08) 49.5%, rgba(201,168,76,0.04) 50%, transparent 50.5%),
+                linear-gradient(87deg, transparent 28%, rgba(201,168,76,0.03) 28.5%, transparent 29%),
+                linear-gradient(95deg, transparent 72%, rgba(201,168,76,0.025) 72.5%, transparent 73%),
+                radial-gradient(ellipse 80% 60% at 50% 50%, rgba(20,15,5,0.8) 0%, rgba(1,1,8,1) 80%);
+        }
+
+        /* Diagonal shard / rubble aesthetic */
+        .bg-layer::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(60,35,5,0.15) 0%, transparent 40%),
+                linear-gradient(315deg, rgba(40,25,5,0.1) 0%, transparent 35%);
+        }
+
+        /* ===== FLOATING DEBRIS ===== */
+        .debris {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .shard {
+            position: absolute;
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.2);
+            animation: drift var(--duration, 8s) var(--delay, 0s) ease-in-out infinite alternate;
+        }
+        @keyframes drift {
+            from { transform: rotate(var(--r1, 0deg)) translateY(0); opacity: var(--op1, 0.3); }
+            to   { transform: rotate(var(--r2, 45deg)) translateY(-30px); opacity: var(--op2, 0.6); }
+        }
+
+        /* ===== STARS ===== */
+        .stars {
+            position: fixed;
+            inset: 0; z-index: 0;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            animation: tw var(--d) var(--dl) ease-in-out infinite alternate;
+        }
+        @keyframes tw {
+            from { opacity: var(--a); }
+            to   { opacity: var(--b); }
+        }
+
+        /* ===== SCAFFOLD ===== */
+        .scaffold {
+            position: fixed;
+            z-index: 2;
+            pointer-events: none;
+        }
+        /* Left scaffold */
+        .scaffold-left {
+            left: 0; top: 0;
+            width: 60px; height: 100vh;
+            border-right: 1px solid rgba(201,168,76,0.12);
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 59px,
+                rgba(201,168,76,0.08) 59px,
+                rgba(201,168,76,0.08) 60px
+            );
+        }
+        /* Right scaffold */
+        .scaffold-right {
+            right: 0; top: 0;
+            width: 60px; height: 100vh;
+            border-left: 1px solid rgba(201,168,76,0.12);
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 59px,
+                rgba(201,168,76,0.08) 59px,
+                rgba(201,168,76,0.08) 60px
+            );
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-track {
+            width: 100%;
+            max-width: 500px;
+            height: 3px;
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.15);
+            margin: 0 auto 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(201,168,76,0.4), var(--primary-gold), var(--gold-light));
+            animation: build 8s ease-in-out infinite alternate;
+            position: relative;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 30px; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5));
+            animation: shimmer 1.5s ease infinite;
+        }
+        @keyframes build {
+            from { width: 25%; }
+            to   { width: 78%; }
+        }
+        @keyframes shimmer {
+            from { opacity: 0; }
+            50%  { opacity: 1; }
+            to   { opacity: 0; }
+        }
+        .progress-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.25em;
+            color: rgba(201,168,76,0.5);
+            text-align: right;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 740px;
+        }
+
+        .eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.45em;
+            text-transform: uppercase;
+            color: rgba(201,168,76,0.6);
+            margin-bottom: 1.8rem;
+            animation: fade-up 1s ease 0.2s both;
+        }
+
+        .icon-wrap {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: fade-up 1s ease 0.4s both, hammer-swing 2s ease-in-out infinite;
+            display: block;
+        }
+        @keyframes hammer-swing {
+            0%, 100% { transform: rotate(-8deg); }
+            50%       { transform: rotate(8deg); }
+        }
+
+        .main-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 0.08em;
+            text-shadow: 
+                0 0 40px rgba(201,168,76,0.35),
+                0 0 80px rgba(201,168,76,0.1);
+            margin-bottom: 0.5rem;
+            animation: fade-up 1s ease 0.6s both;
+        }
+
+        .sub-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: rgba(201,168,76,0.45);
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fade-up 1s ease 0.8s both;
+        }
+
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fade-up 1s ease 1s both;
+        }
+        .ornament-line {
+            width: 60px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5));
+        }
+        .ornament-line:last-child {
+            background: linear-gradient(90deg, rgba(201,168,76,0.5), transparent);
+        }
+        .ornament-diamond {
+            width: 8px; height: 8px;
+            background: rgba(201,168,76,0.5);
+            transform: rotate(45deg);
+        }
+
+        .desc {
+            font-size: 1.05rem;
+            color: rgba(232,228,240,0.65);
+            line-height: 2;
+            font-style: italic;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            animation: fade-up 1s ease 1.2s both;
+        }
+
+        /* Status items */
+        .status-list {
+            list-style: none;
+            max-width: 420px;
+            margin: 0 auto 2.5rem;
+            text-align: left;
+            animation: fade-up 1s ease 1.4s both;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(201,168,76,0.07);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            color: rgba(232,228,240,0.6);
+        }
+        .status-item:last-child { border-bottom: none; }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .status-dot.done    { background: #5dde80; box-shadow: 0 0 8px rgba(93,222,128,0.5); }
+        .status-dot.in-prog { background: var(--primary-gold); box-shadow: 0 0 8px rgba(201,168,76,0.5); animation: pulse-dot 1.5s ease infinite; }
+        .status-dot.pending { background: rgba(232,228,240,0.2); }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50%       { transform: scale(1.4); opacity: 0.7; }
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fade-up 1s ease 1.6s both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: var(--primary-gold);
+            transform: translateX(-101%);
+            transition: transform 0.35s ease;
+            z-index: -1;
+        }
+        .btn-primary:hover { color: var(--void-deep); box-shadow: 0 0 25px rgba(201,168,76,0.35); }
+        .btn-primary:hover::before { transform: translateX(0); }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(232,228,240,0.15);
+            color: rgba(232,228,240,0.5);
+        }
+        .btn-ghost:hover { border-color: rgba(232,228,240,0.4); color: var(--cosmic-white); }
+
+        /* Logo */
+        .logo-bar {
+            position: fixed;
+            top: 1.5rem; left: 2rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+        }
+        .logo-dot {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid var(--primary-gold);
+            background: linear-gradient(135deg, #1a2a1a, #2a1a00);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 9px; color: var(--primary-gold);
+        }
+        .logo-name {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.9rem;
+            color: var(--primary-gold);
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(25px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Stars -->
+    <div class="stars" id="stars"></div>
+    <div class="bg-layer"></div>
+    <div class="debris" id="debris"></div>
+
+    <!-- Scaffold frames -->
+    <div class="scaffold scaffold-left"></div>
+    <div class="scaffold scaffold-right"></div>
+
+    <!-- Logo -->
+    <a href="index.html" class="logo-bar">
+        <div class="logo-dot">EL</div>
+        <span class="logo-name">Enamtila</span>
+    </a>
+
+    <div class="content">
+        <p class="eyebrow">✦ Enamtila Space ✦</p>
+        <span class="icon-wrap">🔨</span>
+        <h1 class="main-title">Under Construction</h1>
+        <h2 class="sub-title">Rebuilding the House of Life — stone by stone</h2>
+
+        <div class="ornament">
+            <span class="ornament-line"></span>
+            <span class="ornament-diamond"></span>
+            <span class="ornament-line"></span>
+        </div>
+
+        <p class="desc">
+            Our architects are deep in the work of creation.<br>
+            Ancient walls are being restored. New wings are rising.<br>
+            Return soon — the House will be ready.
+        </p>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <p class="progress-label" id="progressLabel">Restoration Progress</p>
+
+        <ul class="status-list">
+            <li class="status-item">
+                <span class="status-dot done"></span>
+                Architecture &amp; Foundation — Complete
+            </li>
+            <li class="status-item">
+                <span class="status-dot done"></span>
+                Design System &amp; Identity — Complete
+            </li>
+            <li class="status-item">
+                <span class="status-dot in-prog"></span>
+                Gallery &amp; Media Engine — In Progress
+            </li>
+            <li class="status-item">
+                <span class="status-dot in-prog"></span>
+                Artist Profiles &amp; Community — Building
+            </li>
+            <li class="status-item">
+                <span class="status-dot pending"></span>
+                Enamtila Stays Network — Pending
+            </li>
+            <li class="status-item">
+                <span class="status-dot pending"></span>
+                Marketplace &amp; Commissions — Pending
+            </li>
+        </ul>
+
+        <div class="btn-row">
+            <a href="index.html" class="btn btn-primary">↩ Back to Home</a>
+            <a href="contact.html" class="btn btn-ghost">Contact the Architects</a>
+        </div>
+    </div>
+
+    <script>
+        // Stars
+        const sc = document.getElementById('stars');
+        for (let i = 0; i < 150; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const sz = Math.random() * 1.8 + 0.4;
+            const gold = Math.random() < 0.07;
+            s.style.cssText = `
+                width:${sz}px;height:${sz}px;
+                left:${Math.random()*100}%;top:${Math.random()*100}%;
+                background:${gold?'#c9a84c':'white'};
+                --d:${2+Math.random()*4}s;--dl:${Math.random()*5}s;
+                --a:${0.1+Math.random()*0.2};--b:${0.5+Math.random()*0.5};
+            `;
+            sc.appendChild(s);
+        }
+
+        // Floating debris shards
+        const dc = document.getElementById('debris');
+        const shapes = [
+            [3,18],[5,12],[8,6],[4,22],[6,9],[10,4],[3,15],[7,8],[5,20],[9,5]
+        ];
+        shapes.forEach(([w,h], i) => {
+            const shard = document.createElement('div');
+            shard.className = 'shard';
+            const angle1 = Math.random() * 60 - 30;
+            const angle2 = angle1 + (Math.random() * 40 - 20);
+            shard.style.cssText = `
+                width:${w}px;height:${h}px;
+                left:${5+Math.random()*90}%;
+                top:${5+Math.random()*90}%;
+                transform:rotate(${angle1}deg);
+                --r1:${angle1}deg;--r2:${angle2}deg;
+                --op1:${0.15+Math.random()*0.2};--op2:${0.3+Math.random()*0.3};
+                --duration:${6+Math.random()*8}s;
+                --delay:${Math.random()*5}s;
+            `;
+            dc.appendChild(shard);
+        });
+
+        // Animate progress label
+        const bar = document.getElementById('progressBar');
+        const label = document.getElementById('progressLabel');
+        function updateProgress() {
+            const w = parseFloat(getComputedStyle(bar).width);
+            const tw = parseFloat(getComputedStyle(bar.parentElement).width);
+            const pct = Math.round((w / tw) * 100);
+            label.textContent = `Restoration Progress — ${pct}%`;
+        }
+        setInterval(updateProgress, 200);
+    </script>
+</body>
+</html>
